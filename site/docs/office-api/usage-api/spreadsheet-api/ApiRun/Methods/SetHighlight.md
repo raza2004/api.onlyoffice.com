@@ -16,7 +16,7 @@ expression.SetHighlight(sColor);
 | ------------- | ------------- | ------------- | ------------- | ------------- |
 | sColor | Required | [highlightColor](../../Enumeration/highlightColor.md) |  | Available highlight color. |
 
-## Available highlight colors.
+## Available highlight colors
 
 - "black"
 - "blue"
