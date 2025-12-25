@@ -40,6 +40,16 @@ func.examples = [
 ];
 
 ```
+### Parameters
+
+| Name      | Type    | Example           | Description                            |
+|-----------|---------|-------------------|----------------------------------------|
+| prompt    | string  |"Generate hashtags"| AI hashtag generation instructions.    |
+| count     | number  |    5              | Number of hashtags to generate.        |
+| category  | string  | "LinkedIn"        | Type of hashtags to generate.          |
+
+
+
 ## Function execution {#function-execution}
 
 ```ts
