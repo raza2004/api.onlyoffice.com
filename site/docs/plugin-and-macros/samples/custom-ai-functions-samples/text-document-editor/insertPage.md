@@ -11,48 +11,77 @@ This function inserts a new page into the document at a specified location.
 ## Function registration {#function-registration}
 
 ```ts
-let func = new RegisteredFunction();
-func.name = "insertPage";
-func.params = [
-    "location (string): where to insert the new page ('current', 'start', or 'end')"
-];
+(function () {
+  let func = new RegisteredFunction({
+    name: "insertPage",
+    description:
+      "Inserts a blank page at the specified location in the document.",
+    parameters: {
+      type: "object",
+      properties: {
+        location: {
+          type: "string",
+          enum: ["current", "start", "end"],
+          description:
+            "Where to insert the new page ('current', 'start', or 'end').",
+          default: "current",
+        },
+      },
+      required: ["location"],
+    },
+    examples: [
+      {
+        prompt: "Insert a blank page at current position",
+        arguments: { location: "current" },
+      },
+      {
+        prompt: "Add a new page at the end",
+        arguments: { location: "end" },
+      },
+      {
+        prompt: "Add a page at the beginning",
+        arguments: { location: "start" },
+      },
+    ],
+    returns: {
+      type: "object",
+      description:
+        "An object indicating whether the page was successfully inserted.",
+      properties: {
+        isApply: {
+          type: "boolean",
+          description:
+            "Indicates whether the blank page was successfully inserted at the specified location.",
+        },
+      },
+      required: ["isApply"],
+    },
+  });
 
-func.examples = [
-    "If you need to insert blank page to the current location, respond with:" +
-    "[functionCalling (insertPage)]: {\"location\": \"current\"}",
-
-    "If you need to add page to the end of the document, respond with:" +
-    "[functionCalling (insertPage)]: {\"location\": \"end\"}",
-
-    "If you need to add page to the start of the document, respond with:" +
-    "[functionCalling (insertPage)]: {\"location\": \"start\"}"
-];
+  return func;
+})();
 ```
 
 ### Parameters
 
 | Name     | Type   | Example   | Description                                                          |
-|----------|--------|-----------|----------------------------------------------------------------------|
+| -------- | ------ | --------- | -------------------------------------------------------------------- |
 | location | string | "current" | Specifies where to insert a new page ("current", "start", or "end"). |
 
 ## Function execution {#function-execution}
 
 ```ts
-func.call = async function(params) {
-    Asc.scope.location = params.location;
+func.call = async function (params) {
+  Asc.scope.location = params.location;
 
-    await Asc.Editor.callCommand(function(){
-        let doc = Api.GetDocument();
-        if ("start" === Asc.scope.location)
-            doc.MoveCursorToStart();
-        else if ("end" === Asc.scope.location)
-            doc.MoveCursorToEnd();
+  await Asc.Editor.callCommand(function () {
+    let doc = Api.GetDocument();
+    if ("start" === Asc.scope.location) doc.MoveCursorToStart();
+    else if ("end" === Asc.scope.location) doc.MoveCursorToEnd();
 
-        Api.GetDocument().InsertBlankPage();
-    });
+    Api.GetDocument().InsertBlankPage();
+  });
 };
-
-return func;
 ```
 
 Methods used: [GetDocument](/docs/office-api/usage-api/text-document-api/Api/Methods/GetDocument.md), [MoveCursorToStart](/docs/office-api/usage-api/text-document-api/ApiDocument/Methods/MoveCursorToStart.md), [MoveCursorToEnd](/docs/office-api/usage-api/text-document-api/ApiDocument/Methods/MoveCursorToEnd.md), [InsertBlankPage](/docs/office-api/usage-api/text-document-api/ApiDocument/Methods/InsertBlankPage.md), [Asc.scope object](/docs/plugin-and-macros/interacting-with-editors/overview/how-to-call-commands.md#ascscope-object)
@@ -60,6 +89,7 @@ Methods used: [GetDocument](/docs/office-api/usage-api/text-document-api/Api/Met
 ## Result
 
 <video className="light-video" controls style={{maxWidth: '848px'}}>
+
   <source src="/assets/images/plugins/functions-video/text-document-editor/insertPage.webm" type="video/webm" />
   Your browser does not support HTML5 video.
 </video>
