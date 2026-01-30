@@ -1,5 +1,55 @@
 # Change log
 
+## 7.6.2
+
+### New features
+
+#### Docs API
+
+* Added `Recording macros` page
+* Added `AI Agent` and `AI Plugin` pages for Chinese
+* Updated `Playground` section
+* Added `Builder` option to playground script target
+
+### Fixes
+
+#### Docspace
+
+* Changed `MCP Server` section
+* Fixed styles for the code  in light/dark mode for VSCode
+* Hidden `For hosting providers` section
+
+#### Docs API
+
+* Fixed Getting started page
+* Fixed styles of the right panel of OpenAI
+* Fixed problems in the code examples for plugins due to the lack of required parameters
+* Fixed style for plugins configuration description pages
+
+## 7.6.1
+
+### New features
+
+* Updated the main page
+
+### Fixes
+
+#### Docs API
+
+* Edited the document.info.favorite parameter description
+
+## 7.6.0
+
+### New features
+
+#### Docspace
+
+* Updated DocSpace version 3.6
+
+#### Docs
+
+* Translated Document Builder section into Chinese
+
 ## 7.5.0
 
 ### New features

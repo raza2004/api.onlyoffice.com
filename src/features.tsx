@@ -7,11 +7,12 @@ import HostingIcon from "@site/static/icons/self-hosted-icon.svg";
 import { FeaturesGrid } from "@site/src/components/FeaturesGrid";
 import DocumentBuilderIcon from "@site/static/icons/document-builder-icon.svg";
 import DesktopEditorIcon from "@site/static/icons/desktop-editors-icon.svg";
+import MCPServerIcon from "@site/static/icons/mcp-server-icon.svg";
 
 export type Features = {
   linkPrefix: string
   items: FeaturesGrid.Item[]
-  button?: FeaturesGrid.Button
+  button: FeaturesGrid.Button
 };
 
 export const DocsFeatures: Features = {
@@ -87,9 +88,13 @@ export const DocsFeatures: Features = {
 
 export const DocSpaceFeatures: Features = {
   linkPrefix: 'docspace',
+  button: {
+    text: "Try DocSpace Cloud",
+    href: "https://www.onlyoffice.com/docspace-registration",
+  },
   items: [
     {
-      title: 'Backend REST API',
+      title: 'API Reference',
       link: 'api-backend/get-started/basic-concepts',
       description: (
         <>
@@ -100,7 +105,7 @@ export const DocSpaceFeatures: Features = {
       icon: <DocSpaceApiIcon/>,
     },
     {
-      title: 'JavaScript SDK',
+      title: 'Embed SDK',
       link: 'javascript-sdk/get-started',
       description: (
         <>
@@ -122,16 +127,16 @@ export const DocSpaceFeatures: Features = {
       ),
       icon: <PluginIcon/>,
     },
-    {
-      title: 'For hosting providers',
-      link: 'for-hosting-providers/get-started/authentication',
+	{
+      title: 'MCP Server',
+      link: 'mcp-server',
       description: (
         <>
-          Provide the DocSpace portal as a{" "}
-          SaaS solution on your own servers using our API methods.
+          Connect AI tools directly to ONLYOFFICE DocSpace to execute actions{" "}
+          through natural language interactions.
         </>
       ),
-      icon: <HostingIcon/>,
+      icon: <MCPServerIcon/>,
     },
   ]
 }
