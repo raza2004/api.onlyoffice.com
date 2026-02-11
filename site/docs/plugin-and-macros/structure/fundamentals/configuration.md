@@ -1,4 +1,4 @@
-# Plugin Configuration
+# Configuration
 
 ## Overview
 
