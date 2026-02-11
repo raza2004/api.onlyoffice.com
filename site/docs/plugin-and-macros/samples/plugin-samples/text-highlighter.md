@@ -8,8 +8,8 @@ Search for text and apply highlighting, color, and formatting styles in the docu
 
 ## Result
 
-![TextHighlighter](/assets/images/plugins/text-highlighter-image.png#gh-light-mode-only)
-![TextHighlighter](/assets/images/plugins/text-highlighter-image-dark-mode.png#gh-dark-mode-only)
+<!-- ![TextHighlighter](/assets/images/plugins/text-highlighter-image.png#gh-light-mode-only)
+![TextHighlighter](/assets/images/plugins/text-highlighter-image-dark-mode.png#gh-dark-mode-only) -->
 
 ## Installation
 
