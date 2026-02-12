@@ -381,14 +381,22 @@ Configuration for marketplace listing.
 
 ### Missing Required Fields
 
+**Error name:** Missing guid field
+
+:::warning[Wrong]
+
 ```json
-// ❌ Wrong - Missing guid
 {
   "name": "My Plugin",
   "version": "1.0.0"
 }
+```
 
-// ✅ Correct
+:::
+
+:::tip[Correct]
+
+```json
 {
   "name": "My Plugin",
   "guid": "asc.{UNIQUE-GUID}",
@@ -397,33 +405,127 @@ Configuration for marketplace listing.
 }
 ```
 
+:::
+
+Error output: Plugin will not appear in the Plugins menu. No error message displayed to user.
+
 ### Invalid GUID Format
 
-```json
-// ❌ Wrong
-"guid": "{12345678-1234-1234-1234-123456789ABC}"
+**Error name:** Missing "asc." prefix in GUID
 
-// ✅ Correct
-"guid": "asc.{12345678-1234-1234-1234-123456789ABC}"
+:::warning[Wrong]
+
+```json
+{
+  "guid": "{12345678-1234-1234-1234-123456789ABC}"
+}
 ```
+
+:::
+
+:::tip[Correct]
+
+```json
+{
+  "guid": "asc.{12345678-1234-1234-1234-123456789ABC}"
+}
+```
+
+:::
+
+Error output: Plugin may fail to load or conflict with other plugins. Check browser console for GUID-related errors.
 
 ### Wrong Button Configuration
 
+**Error name:** Buttons defined for non-modal plugins
+
+:::warning[Wrong]
+
 ```json
-// ❌ Wrong - Panel plugins don't use buttons
 {
   "isModal": false,
   "isInsideMode": true,
-  "buttons": [{"text": "OK"}]
+  "buttons": [{ "text": "OK" }]
 }
+```
 
-// ✅ Correct
+:::
+
+:::tip[Correct]
+
+```json
 {
   "isModal": false,
   "isInsideMode": true,
   "buttons": []
 }
 ```
+
+:::
+
+Error output: Buttons are ignored for panel plugins. No visible error, but unnecessary configuration.
+
+### Missing Variations Array
+
+**Error name:** Empty or missing variations
+
+:::warning[Wrong]
+
+```json
+{
+  "name": "My Plugin",
+  "guid": "asc.{UNIQUE-GUID}",
+  "version": "1.0.0"
+}
+```
+
+:::
+
+:::tip[Correct]
+
+```json
+{
+  "name": "My Plugin",
+  "guid": "asc.{UNIQUE-GUID}",
+  "version": "1.0.0",
+  "variations": [
+    {
+      "url": "index.html",
+      "icons": ["icon.png"]
+    }
+  ]
+}
+```
+
+:::
+
+Error output: Plugin will not load. Configuration is considered invalid.
+
+### Incorrect File Paths
+
+**Error name:** Wrong icon path
+
+:::warning[Wrong]
+
+```json
+{
+  "icons": ["icon.png"]
+}
+```
+
+:::
+
+:::tip[Correct]
+
+```json
+{
+  "icons": ["resources/icons/icon.png"]
+}
+```
+
+:::
+
+Error output: Plugin icon will not display. Default placeholder icon shown instead.
 
 ## Debugging Configuration
 

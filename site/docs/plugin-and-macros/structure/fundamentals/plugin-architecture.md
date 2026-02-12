@@ -47,11 +47,11 @@ A typical plugin consists of these core components:
 
 ```
 my-plugin/
-├── config.json          # Plugin configuration and metadata
-├── index.html           # User interface
-├── plugin.js            # Business logic
-├── styles.css           # Styling
-└── assets/              # Icons, images, resources
+├── config.json
+├── index.html
+├── plugin.js
+├── styles.css
+└── assets/
     └── icons/
         ├── icon.png
         └── icon@2x.png
