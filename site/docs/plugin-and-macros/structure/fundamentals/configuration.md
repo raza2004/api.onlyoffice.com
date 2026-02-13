@@ -1,10 +1,10 @@
-# Configuration
+# Plugin configuration
 
 ## Overview
 
-The `config.json` file is the heart of every ONLYOFFICE plugin. It defines the plugin's metadata, appearance, behavior, and integration with the editor.
+The `config.json` file is the heart of every OnlyOffice plugin. It defines the plugin's metadata, appearance, behavior, and integration with the editor.
 
-## Basic Structure
+## Basic structure
 
 Every plugin requires a `config.json` file with this minimum structure:
 
@@ -24,7 +24,7 @@ Every plugin requires a `config.json` file with this minimum structure:
 }
 ```
 
-## Required Fields
+## Required fields
 
 ### name
 
@@ -73,7 +73,7 @@ Array of plugin configurations. Most plugins have one variation.
 }
 ```
 
-## Essential Variation Properties
+## Essential variation properties
 
 ### url
 
@@ -118,7 +118,7 @@ Theme-aware icons for light and dark modes.
 }
 ```
 
-### EditorsSupport
+### Editorssupport
 
 Specifies which editor types support your plugin.
 
@@ -130,7 +130,7 @@ Specifies which editor types support your plugin.
 
 **Options:** `"word"`, `"cell"`, `"slide"`, `"pdf"`
 
-### isViewer
+### isviewer
 
 Whether plugin works in viewer mode.
 
@@ -219,7 +219,7 @@ Footer buttons for modal plugins.
 
 ## Localization
 
-### nameLocale
+### namelocale
 
 Translated plugin names.
 
@@ -251,7 +251,7 @@ Translated descriptions.
 
 **Supported languages:** `en`, `ru`, `de`, `fr`, `es`, `pt-BR`, `it`, `ja`, `zh`, `cs`, `uk`
 
-## Advanced Configuration
+## Advanced configuration
 
 ### initDataType
 
@@ -285,7 +285,7 @@ Base URL for remotely hosted plugins.
 }
 ```
 
-## Store Configuration
+## Store configuration
 
 Configuration for marketplace listing.
 
@@ -311,7 +311,7 @@ Configuration for marketplace listing.
 
 **Categories:** `"work"`, `"specAbilities"`, `"entertainment"`, `"devTools"`, `"integration"`
 
-## Complete Example
+## Complete example
 
 ```json
 {
@@ -377,9 +377,9 @@ Configuration for marketplace listing.
 }
 ```
 
-## Common Mistakes
+## Common configuration errors
 
-### Missing Required Fields
+### Missing required fields
 
 **Error name:** Missing guid field
 
@@ -409,7 +409,7 @@ Configuration for marketplace listing.
 
 Error output: Plugin will not appear in the Plugins menu. No error message displayed to user.
 
-### Invalid GUID Format
+### Invalid guid format
 
 **Error name:** Missing "asc." prefix in GUID
 
@@ -435,7 +435,7 @@ Error output: Plugin will not appear in the Plugins menu. No error message displ
 
 Error output: Plugin may fail to load or conflict with other plugins. Check browser console for GUID-related errors.
 
-### Wrong Button Configuration
+### Wrong button configuration
 
 **Error name:** Buttons defined for non-modal plugins
 
@@ -465,7 +465,7 @@ Error output: Plugin may fail to load or conflict with other plugins. Check brow
 
 Error output: Buttons are ignored for panel plugins. No visible error, but unnecessary configuration.
 
-### Missing Variations Array
+### Missing variations array
 
 **Error name:** Empty or missing variations
 
@@ -501,7 +501,7 @@ Error output: Buttons are ignored for panel plugins. No visible error, but unnec
 
 Error output: Plugin will not load. Configuration is considered invalid.
 
-### Incorrect File Paths
+### Incorrect file paths
 
 **Error name:** Wrong icon path
 
@@ -527,7 +527,7 @@ Error output: Plugin will not load. Configuration is considered invalid.
 
 Error output: Plugin icon will not display. Default placeholder icon shown instead.
 
-## Debugging Configuration
+## Debugging configuration
 
 If your plugin doesn't appear:
 
@@ -537,7 +537,7 @@ If your plugin doesn't appear:
 4. **Test EditorsSupport** - Test in a supported editor
 5. **Review console** - Check browser DevTools for errors
 
-## Best Practices
+## Best practices
 
 1. **Use unique GUIDs** - Never copy from examples
 2. **Follow semantic versioning** - Track changes properly

@@ -17,20 +17,20 @@ Before you begin developing ONLYOFFICE plugins, you should have:
 - ONLYOFFICE Desktop Editors or Document Server installed
 - Understanding of JSON configuration files
 
-## Setting Up Your Development Environment
+## Setting up your development environment
 
 To start developing ONLYOFFICE plugins, follow these steps:
 
 1. **Install ONLYOFFICE**: Download and install ONLYOFFICE Desktop Editors from the official website or set up ONLYOFFICE Document Server.
 
-2. **Locate the Plugins Directory**: Find where ONLYOFFICE stores its plugins on your system:
+2. **Locate the plugins directory**: Find where ONLYOFFICE stores its plugins on your system:
    - **Windows**: `%ProgramFiles%\ONLYOFFICE\DesktopEditors\editors\sdkjs-plugins\`
    - **Linux**: `/opt/ONLYOFFICE/desktopeditors/editors/sdkjs-plugins/`
    - **macOS**: `/Applications/ONLYOFFICE.app/Contents/Resources/editors/sdkjs-plugins/`
 
-3. **Create Your Plugin Folder**: Create a new folder in the plugins directory with a descriptive name for your plugin.
+3. **Create your plugin folder**: Create a new folder in the plugins directory with a descriptive name for your plugin.
 
-## Basic Plugin Structure
+## Basic plugin structure
 
 Every ONLYOFFICE plugin requires at least these essential files:
 
@@ -42,7 +42,7 @@ my-plugin/
 └── icon.png
 ```
 
-### Minimum Configuration
+### Minimum configuration
 
 Create a `config.json` file with the basic plugin information:
 
@@ -62,7 +62,7 @@ Create a `config.json` file with the basic plugin information:
 }
 ```
 
-## Your First Plugin
+## Your first plugin
 
 Let's create a simple "Hello World" plugin:
 
@@ -97,14 +97,14 @@ Let's create a simple "Hello World" plugin:
 })(window, undefined);
 ```
 
-## Testing Your Plugin
+## Testing your plugin
 
 1. Place your plugin folder in the ONLYOFFICE plugins directory
 2. Restart ONLYOFFICE
 3. Open a document and look for your plugin in the Plugins tab
 4. Click on your plugin to launch it
 
-## Next Steps
+## Next steps
 
 Now that you have a basic plugin running, you can:
 

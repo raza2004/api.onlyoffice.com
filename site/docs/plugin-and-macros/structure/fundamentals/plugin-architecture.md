@@ -1,14 +1,14 @@
-# Plugin Architecture
+# Plugin architecture
 
 ## Overview
 
-ONLYOFFICE plugins follow a modular architecture that separates the plugin interface from the core editor functionality. Understanding this architecture is essential for building robust and efficient plugins.
+OnlyOffice plugins follow a modular architecture that separates the plugin interface from the core editor functionality. Understanding this architecture is essential for building robust and efficient plugins.
 
-## Architectural Components
+## Architectural components
 
-### 1. Plugin Container (Iframe)
+### 1. plugin container (iframe)
 
-Each plugin runs in an isolated iframe environment within the ONLYOFFICE editor. This provides:
+Each plugin runs in an isolated iframe environment within the OnlyOffice editor. This provides:
 
 - **Security isolation** - Plugins cannot directly access the editor's internal state
 - **Cross-platform compatibility** - Plugins work consistently across different platforms
@@ -16,7 +16,7 @@ Each plugin runs in an isolated iframe environment within the ONLYOFFICE editor.
 
 ```
 ┌─────────────────────────────────────┐
-│   ONLYOFFICE Editor (Main Window)  │
+│   OnlyOffice Editor (Main Window)  │
 │  ┌───────────────────────────────┐ │
 │  │   Plugin Iframe (Sandboxed)   │ │
 │  │   ┌─────────────────────────┐ │ │
@@ -27,7 +27,7 @@ Each plugin runs in an isolated iframe environment within the ONLYOFFICE editor.
 └─────────────────────────────────────┘
 ```
 
-### 2. Communication Layer (API Bridge)
+### 2. communication layer (api bridge)
 
 Plugins communicate with the editor through the `window.Asc.plugin` API interface:
 
@@ -41,25 +41,25 @@ window.Asc.plugin.init = function (data) {
 };
 ```
 
-### 3. File System Structure
+### 3. file system structure
 
 A typical plugin consists of these core components:
 
 ```
 my-plugin/
-├── config.json
-├── index.html
-├── plugin.js
-├── styles.css
-└── assets/
+├── config.json          # Plugin configuration and metadata
+├── index.html           # User interface
+├── plugin.js            # Business logic
+├── styles.css           # Styling
+└── assets/              # Icons, images, resources
     └── icons/
         ├── icon.png
         └── icon@2x.png
 ```
 
-## Key Architectural Principles
+## Key architectural principles
 
-### Separation of Concerns
+### Separation of concerns
 
 ONLYOFFICE plugins follow the MVC pattern:
 
@@ -67,7 +67,7 @@ ONLYOFFICE plugins follow the MVC pattern:
 - **Controller (JavaScript)** - Business logic and API interaction
 - **Model (Config)** - Plugin metadata and configuration
 
-### Event-Driven Communication
+### Event-driven communication
 
 Plugins operate on an event-driven model:
 
@@ -90,7 +90,7 @@ window.Asc.plugin.button = function (id) {
 };
 ```
 
-### Stateless Design
+### Stateless design
 
 Plugins should be designed to be stateless between sessions:
 
@@ -98,9 +98,9 @@ Plugins should be designed to be stateless between sessions:
 - **Clean initialization** - Don't assume previous state
 - **Self-contained** - Include all dependencies
 
-## Plugin Types
+## Plugin types
 
-### Modal Plugins
+### Modal plugins
 
 Modal plugins block interaction with the document:
 
@@ -114,7 +114,7 @@ Modal plugins block interaction with the document:
 
 **Use for:** Forms, configuration dialogs, one-time actions
 
-### Panel Plugins
+### Panel plugins
 
 Panel plugins run alongside the document:
 
@@ -128,7 +128,7 @@ Panel plugins run alongside the document:
 
 **Use for:** Continuous workflows, tools, reference panels
 
-### Background Plugins
+### Background plugins
 
 Background plugins run without UI:
 
@@ -141,9 +141,9 @@ Background plugins run without UI:
 
 **Use for:** Automated tasks, event-driven operations
 
-## Data Flow
+## Data flow
 
-### Input Flow
+### Input flow
 
 ```
 User Action → Plugin UI → JavaScript Handler → API Call → Editor
@@ -160,7 +160,7 @@ function insertText() {
 }
 ```
 
-### Output Flow
+### Output flow
 
 ```
 Editor Event → API Callback → Plugin Handler → UI Update
@@ -176,7 +176,7 @@ window.Asc.plugin.onSelectionChanged = function (selection) {
 };
 ```
 
-## Security Architecture
+## Security architecture
 
 ### Sandboxing
 
@@ -187,7 +187,7 @@ Plugins are sandboxed to prevent:
 - Access to other plugins or editor internals
 - XSS attacks on the main editor
 
-### Permissions Model
+### Permissions model
 
 Plugins can only perform actions explicitly allowed by the API:
 
@@ -199,9 +199,9 @@ window.Asc.plugin.executeMethod("PasteText", ["Safe content"]);
 document.querySelector(".editor-content").innerHTML = "Unsafe";
 ```
 
-## Performance Best Practices
+## Performance best practices
 
-### Efficient Initialization
+### Efficient initialization
 
 ```javascript
 window.Asc.plugin.init = function (data) {
@@ -213,7 +213,7 @@ window.Asc.plugin.init = function (data) {
 };
 ```
 
-### Memory Management
+### Memory management
 
 ```javascript
 function cleanup() {
@@ -228,7 +228,7 @@ window.Asc.plugin.button = function (id) {
 };
 ```
 
-## Multi-Editor Support
+## Multi-editor support
 
 Plugins can support multiple editor types:
 
@@ -252,18 +252,18 @@ window.Asc.plugin.init = function (data) {
 };
 ```
 
-## Extension Points
+## Extension points
 
-ONLYOFFICE provides several extension points:
+OnlyOffice provides several extension points:
 
 1. **API Methods** - Predefined functions to manipulate content
 2. **Events** - React to editor and user actions
 3. **UI Integration** - Toolbars, panels, modals
 4. **Document Builder API** - Direct document manipulation
 
-## Code Organization Best Practices
+## Code organization best practices
 
-### Modular Design
+### Modular design
 
 ```javascript
 // Separate concerns into modules
@@ -293,7 +293,7 @@ const State = {
 };
 ```
 
-### Error Handling
+### Error handling
 
 ```javascript
 window.Asc.plugin.executeMethod("PasteText", [text], function (result) {
@@ -304,7 +304,7 @@ window.Asc.plugin.executeMethod("PasteText", [text], function (result) {
 });
 ```
 
-### Responsive Design
+### Responsive design
 
 ```css
 @media (max-width: 400px) {
