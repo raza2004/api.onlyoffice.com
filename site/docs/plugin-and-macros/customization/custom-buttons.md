@@ -1,8 +1,8 @@
 ---
-sidebar_position: -2
+sidebar_position: 5
 ---
 
-# Buttons
+# Custom buttons
 
 To process [buttons](../structure/configuration/configuration.md#variationsbuttons) which are specified in the plugin variations (not in the modal windows / panels), use the **button** method. This function is called when any of the plugin buttons is clicked.
 
