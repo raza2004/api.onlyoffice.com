@@ -11,55 +11,37 @@ This function inserts a new page into the document at a specified location.
 ## Function registration {#function-registration}
 
 ```ts
-(function () {
-  let func = new RegisteredFunction({
+let func = new RegisteredFunction({
     name: "insertPage",
     description:
-      "Inserts a blank page at the specified location in the document.",
+        "Inserts a new page into the document at a specified location.",
     parameters: {
-      type: "object",
-      properties: {
-        location: {
-          type: "string",
-          enum: ["current", "start", "end"],
-          description:
-            "Where to insert the new page ('current', 'start', or 'end').",
-          default: "current",
+        type: "object",
+        properties: {
+            location: {
+                type: "string",
+                description:
+                    "Where to insert the new page ('current', 'start', or 'end')",
+            },
         },
-      },
-      required: ["location"],
+        required: ["location"],
     },
     examples: [
-      {
-        prompt: "Insert a blank page at current position",
-        arguments: { location: "current" },
-      },
-      {
-        prompt: "Add a new page at the end",
-        arguments: { location: "end" },
-      },
-      {
-        prompt: "Add a page at the beginning",
-        arguments: { location: "start" },
-      },
-    ],
-    returns: {
-      type: "object",
-      description:
-        "An object indicating whether the page was successfully inserted.",
-      properties: {
-        isApply: {
-          type: "boolean",
-          description:
-            "Indicates whether the blank page was successfully inserted at the specified location.",
+        {
+            prompt: "Insert a page at the current location",
+            arguments: { location: "current" },
         },
-      },
-      required: ["isApply"],
-    },
-  });
+        {
+            prompt: "Add a page at the end of the document",
+            arguments: { location: "end" },
+        },
+        {
+            prompt: "Add a page at the start of the document",
+            arguments: { location: "start" },
+        },
+    ],
+});
 
-  return func;
-})();
 ```
 
 ### Parameters
@@ -71,17 +53,51 @@ This function inserts a new page into the document at a specified location.
 ## Function execution {#function-execution}
 
 ```ts
-func.call = async function (params) {
-  Asc.scope.location = params.location;
+(function () {
+    let func = new RegisteredFunction({
+        name: "insertPage",
+        description:
+            "Inserts a new page into the document at a specified location.",
+        parameters: {
+            type: "object",
+            properties: {
+                location: {
+                    type: "string",
+                    description:
+                        "Where to insert the new page ('current', 'start', or 'end')",
+                },
+            },
+            required: ["location"],
+        },
+        examples: [
+            {
+                prompt: "Insert a page at the current location",
+                arguments: { location: "current" },
+            },
+            {
+                prompt: "Add a page at the end of the document",
+                arguments: { location: "end" },
+            },
+            {
+                prompt: "Add a page at the start of the document",
+                arguments: { location: "start" },
+            },
+        ],
+    });
 
-  await Asc.Editor.callCommand(function () {
-    let doc = Api.GetDocument();
-    if ("start" === Asc.scope.location) doc.MoveCursorToStart();
-    else if ("end" === Asc.scope.location) doc.MoveCursorToEnd();
+    func.call = async function (params) {
+        Asc.scope.location = params.location;
 
-    Api.GetDocument().InsertBlankPage();
-  });
-};
+        await Asc.Editor.callCommand(function () {
+            let doc = Api.GetDocument();
+            if ("start" === Asc.scope.location) doc.MoveCursorToStart();
+            else if ("end" === Asc.scope.location) doc.MoveCursorToEnd();
+
+            Api.GetDocument().InsertBlankPage();
+        });
+    };
+    return func;
+})();
 ```
 
 Methods used: [GetDocument](/docs/office-api/usage-api/text-document-api/Api/Methods/GetDocument.md), [MoveCursorToStart](/docs/office-api/usage-api/text-document-api/ApiDocument/Methods/MoveCursorToStart.md), [MoveCursorToEnd](/docs/office-api/usage-api/text-document-api/ApiDocument/Methods/MoveCursorToEnd.md), [InsertBlankPage](/docs/office-api/usage-api/text-document-api/ApiDocument/Methods/InsertBlankPage.md), [Asc.scope object](/docs/plugin-and-macros/interacting-with-editors/overview/how-to-call-commands.md#ascscope-object)
