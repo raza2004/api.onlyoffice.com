@@ -1,6 +1,7 @@
 ---
 sidebar_position: 7
 ---
+
 # UI component library
 
 ## Overview
@@ -24,24 +25,26 @@ The UI component library is a collection of ready-to-use interface components de
 Create right-click context menus within your plugin interface.
 
 **Use cases:**
+
 - Custom actions on selected items
 - Quick access to common operations
 - Contextual options based on user interaction
 
 **Example:**
+
 ```javascript
 window.Asc.plugin.contextMenuShow({
   items: [
     { id: "copy", text: "Copy", icon: "copy.png" },
     { id: "paste", text: "Paste", icon: "paste.png" },
     { separator: true },
-    { id: "delete", text: "Delete", icon: "delete.png" }
+    { id: "delete", text: "Delete", icon: "delete.png" },
   ],
   x: 100,
-  y: 150
+  y: 150,
 });
 
-window.Asc.plugin.onContextMenuClick = function(id) {
+window.Asc.plugin.onContextMenuClick = function (id) {
   if (id === "copy") {
     // Handle copy action
   }
@@ -53,12 +56,14 @@ window.Asc.plugin.onContextMenuClick = function(id) {
 Add custom buttons to plugin toolbars for quick actions.
 
 **Use cases:**
+
 - Main plugin actions
 - Mode switching
 - Tool selection
 - Quick settings access
 
 **Example:**
+
 ```html
 <div class="toolbar">
   <button class="toolbar-button" id="boldBtn">
@@ -99,6 +104,7 @@ Add custom buttons to plugin toolbars for quick actions.
 Create modal dialogs and side panels for plugin content.
 
 **Modal window example:**
+
 ```json
 {
   "isModal": true,
@@ -112,6 +118,7 @@ Create modal dialogs and side panels for plugin content.
 ```
 
 **Side panel example:**
+
 ```json
 {
   "isModal": false,
@@ -122,6 +129,7 @@ Create modal dialogs and side panels for plugin content.
 ```
 
 **Key features:**
+
 - Resizable windows
 - Draggable dialogs
 - Persistent panel state
@@ -132,15 +140,22 @@ Create modal dialogs and side panels for plugin content.
 Form input components with validation and styling.
 
 **Text input:**
+
 ```html
 <div class="input-group">
   <label for="username">Username:</label>
-  <input type="text" id="username" class="input-field" placeholder="Enter username" />
+  <input
+    type="text"
+    id="username"
+    class="input-field"
+    placeholder="Enter username"
+  />
   <span class="input-hint">Must be 3-20 characters</span>
 </div>
 ```
 
 **Checkbox:**
+
 ```html
 <label class="checkbox-label">
   <input type="checkbox" id="rememberMe" />
@@ -149,6 +164,7 @@ Form input components with validation and styling.
 ```
 
 **Select dropdown:**
+
 ```html
 <div class="input-group">
   <label for="language">Language:</label>
@@ -161,6 +177,7 @@ Form input components with validation and styling.
 ```
 
 **Styling:**
+
 ```css
 .input-group {
   margin-bottom: 16px;
@@ -204,21 +221,25 @@ Create styled buttons that match ONLYOFFICE design patterns.
 **Button types:**
 
 **Primary button:**
+
 ```html
 <button class="btn btn-primary">Save Changes</button>
 ```
 
 **Secondary button:**
+
 ```html
 <button class="btn btn-secondary">Cancel</button>
 ```
 
 **Danger button:**
+
 ```html
 <button class="btn btn-danger">Delete</button>
 ```
 
 **Icon button:**
+
 ```html
 <button class="btn btn-icon">
   <img src="icons/settings.svg" alt="Settings" />
@@ -226,6 +247,7 @@ Create styled buttons that match ONLYOFFICE design patterns.
 ```
 
 **Styling:**
+
 ```css
 .btn {
   padding: 8px 16px;
@@ -282,12 +304,14 @@ Create styled buttons that match ONLYOFFICE design patterns.
 Special buttons for content insertion and manipulation.
 
 **Use cases:**
+
 - Insert pre-formatted content
 - Apply templates
 - Add structured data
 - Create content blocks
 
 **Example:**
+
 ```html
 <div class="content-controls">
   <button class="content-btn" data-type="table">
@@ -306,20 +330,22 @@ Special buttons for content insertion and manipulation.
 ```
 
 ```javascript
-document.querySelectorAll('.content-btn').forEach(btn => {
-  btn.addEventListener('click', function() {
+document.querySelectorAll(".content-btn").forEach((btn) => {
+  btn.addEventListener("click", function () {
     const type = this.dataset.type;
     insertContent(type);
   });
 });
 
 function insertContent(type) {
-  if (type === 'table') {
+  if (type === "table") {
     window.Asc.plugin.executeMethod("InsertTable", [3, 3]);
-  } else if (type === 'image') {
+  } else if (type === "image") {
     // Handle image insertion
-  } else if (type === 'list') {
-    window.Asc.plugin.executeMethod("PasteHtml", ["<ul><li>Item 1</li><li>Item 2</li></ul>"]);
+  } else if (type === "list") {
+    window.Asc.plugin.executeMethod("PasteHtml", [
+      "<ul><li>Item 1</li><li>Item 2</li></ul>",
+    ]);
   }
 }
 ```
@@ -342,18 +368,21 @@ Include the UI library in your plugin's `index.html`:
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>My Plugin</title>
-  <link rel="stylesheet" href="https://onlyoffice.github.io/sdkjs-plugins/v1/plugins-ui.css">
-  <script src="https://onlyoffice.github.io/sdkjs-plugins/v1/plugins.js"></script>
-  <script src="https://onlyoffice.github.io/sdkjs-plugins/v1/plugins-ui.js"></script>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <!-- Your plugin UI here -->
-  <script src="plugin.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Plugin</title>
+    <link
+      rel="stylesheet"
+      href="https://onlyoffice.github.io/sdkjs-plugins/v1/plugins-ui.css"
+    />
+    <script src="https://onlyoffice.github.io/sdkjs-plugins/v1/plugins.js"></script>
+    <script src="https://onlyoffice.github.io/sdkjs-plugins/v1/plugins-ui.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Your plugin UI here -->
+    <script src="plugin.js"></script>
+  </body>
 </html>
 ```
 
@@ -362,17 +391,17 @@ Include the UI library in your plugin's `index.html`:
 The component library automatically adapts to ONLYOFFICE themes:
 
 ```javascript
-window.Asc.plugin.onThemeChanged = function(theme) {
+window.Asc.plugin.onThemeChanged = function (theme) {
   // Apply theme-specific styles
-  document.body.classList.toggle('dark-mode', theme.type === 'dark');
-  
+  document.body.classList.toggle("dark-mode", theme.type === "dark");
+
   // Update component colors
-  if (theme.type === 'dark') {
-    document.documentElement.style.setProperty('--bg-color', '#1e1e1e');
-    document.documentElement.style.setProperty('--text-color', '#e0e0e0');
+  if (theme.type === "dark") {
+    document.documentElement.style.setProperty("--bg-color", "#1e1e1e");
+    document.documentElement.style.setProperty("--text-color", "#e0e0e0");
   } else {
-    document.documentElement.style.setProperty('--bg-color', '#ffffff');
-    document.documentElement.style.setProperty('--text-color', '#333333');
+    document.documentElement.style.setProperty("--bg-color", "#ffffff");
+    document.documentElement.style.setProperty("--text-color", "#333333");
   }
 };
 ```
@@ -393,11 +422,9 @@ window.Asc.plugin.onThemeChanged = function(theme) {
 - **Color contrast** - Ensure sufficient contrast ratios (WCAG AA minimum)
 
 **Example:**
+
 ```html
-<button 
-  class="btn btn-primary" 
-  aria-label="Save document"
-  tabindex="0">
+<button class="btn btn-primary" aria-label="Save document" tabindex="0">
   Save
 </button>
 ```
@@ -415,7 +442,7 @@ Make components work across different plugin sizes:
   .plugin-container {
     padding: 12px;
   }
-  
+
   .btn {
     width: 100%;
     margin-bottom: 8px;
@@ -437,6 +464,7 @@ Make components work across different plugin sizes:
 - **Cache DOM references** - Store frequently accessed elements
 
 **Example:**
+
 ```javascript
 // ✅ Good - Cache DOM references
 const container = document.getElementById('container');
@@ -461,13 +489,18 @@ document.getElementById('container').querySelector('.btn').classList.add('active
 ```html
 <div class="plugin-container">
   <h2>Settings</h2>
-  
+
   <div class="input-group">
     <label for="apiKey">API Key:</label>
-    <input type="text" id="apiKey" class="input-field" placeholder="Enter your API key" />
+    <input
+      type="text"
+      id="apiKey"
+      class="input-field"
+      placeholder="Enter your API key"
+    />
     <span class="input-hint">Required for external service integration</span>
   </div>
-  
+
   <div class="input-group">
     <label for="language">Language:</label>
     <select id="language" class="select-field">
@@ -476,12 +509,12 @@ document.getElementById('container').querySelector('.btn').classList.add('active
       <option value="de">Deutsch</option>
     </select>
   </div>
-  
+
   <label class="checkbox-label">
     <input type="checkbox" id="autoSync" />
     <span>Enable automatic synchronization</span>
   </label>
-  
+
   <div class="button-group">
     <button class="btn btn-primary" onclick="saveSettings()">Save</button>
     <button class="btn btn-secondary" onclick="resetSettings()">Reset</button>
@@ -504,9 +537,9 @@ document.getElementById('container').querySelector('.btn').classList.add('active
       <img src="icons/underline.svg" alt="Underline" />
     </button>
   </div>
-  
+
   <div class="toolbar-separator"></div>
-  
+
   <div class="toolbar-group">
     <button class="toolbar-button" title="Insert Link" data-action="link">
       <img src="icons/link.svg" alt="Link" />
@@ -514,38 +547,6 @@ document.getElementById('container').querySelector('.btn').classList.add('active
     <button class="toolbar-button" title="Insert Image" data-action="image">
       <img src="icons/image.svg" alt="Image" />
     </button>
-  </div>
-</div>
-```
-
-## External resources
-
-For advanced UI components and styling, you can use these external libraries:
-
-### Popular UI frameworks compatible with ONLYOFFICE plugins:
-
-- **Bootstrap** - Comprehensive component library
-- **Tailwind CSS** - Utility-first CSS framework
-- **Material-UI** - Google's Material Design components
-- **Ant Design** - Enterprise-level UI design language
-
-### Integration example with external library:
-
-```html
-<!-- Using Bootstrap for advanced components -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Plugin Settings</h5>
-          <p class="card-text">Configure your plugin preferences</p>
-          <button class="btn btn-primary">Configure</button>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 ```
