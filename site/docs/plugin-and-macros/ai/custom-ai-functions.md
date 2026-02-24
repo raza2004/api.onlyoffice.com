@@ -217,7 +217,7 @@ After registering the function, implement the actual logic that gets executed wh
     });
     ```
 
-> To ensure the entire block of changes can be rolled back after the request is executed, we use [StartAction](../interacting-with-editors/text-document-api/Methods/StartAction.md) and [EndAction](../interacting-with-editors/text-document-api/Methods/EndAction.md) methods across the `commentText` function.
+> To ensure the entire block of changes can be rolled back after the request is executed, we use [StartAction](../interacting-with-editors/api-by-editor-type/text-document-api/Methods/StartAction.md) and [EndAction](../interacting-with-editors/api-by-editor-type/text-document-api/Methods/EndAction.md) methods across the `commentText` function.
 
 The entire implementation of the `commentText` function with comments:
 

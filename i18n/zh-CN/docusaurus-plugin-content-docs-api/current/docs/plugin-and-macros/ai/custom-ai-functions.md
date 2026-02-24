@@ -217,7 +217,7 @@ func.examples = [
     });
     ```
 
-> 为了确保在请求执行后可以回滚整个更改块，我们在 `commentText` 函数中使用了 [StartAction](../interacting-with-editors/text-document-api/Methods/StartAction.md) 和 [EndAction](../interacting-with-editors/text-document-api/Methods/EndAction.md) 方法。
+> 为了确保在请求执行后可以回滚整个更改块，我们在 `commentText` 函数中使用了 [StartAction](../interacting-with-editors/api-by-editor-type/text-document-api/Methods/StartAction.md) 和 [EndAction](../interacting-with-editors/api-by-editor-type/text-document-api/Methods/EndAction.md) 方法。
 
 带注释的 `commentText` 函数完整实现：
 

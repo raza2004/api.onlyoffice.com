@@ -53,7 +53,7 @@ Repository on GitHub: [settings](https://github.com/ONLYOFFICE/sdkjs-plugins/tre
 
 - [button](/docs/plugin-and-macros/customization/buttons.md)
 - [init](/docs/plugin-and-macros/interacting-with-editors/overview/#how-it-works)
-- [executeMethod ("SetProperties")](/docs/plugin-and-macros/interacting-with-editors/text-document-api/Methods/SetProperties.md)
+- [executeMethod ("SetProperties")](/docs/plugin-and-macros/interacting-with-editors/api-by-editor-type/text-document-api/Methods/SetProperties.md)
 
 ## Support
 

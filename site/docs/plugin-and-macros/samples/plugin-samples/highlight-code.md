@@ -173,9 +173,9 @@ Repository on GitHub: [highlightcode](https://github.com/ONLYOFFICE/onlyoffice.g
 
 - [button](/docs/plugin-and-macros/customization/buttons.md)
 - [init](/docs/plugin-and-macros/interacting-with-editors/overview/#how-it-works)
-- [onExternalMouseUp](/docs/plugin-and-macros/interacting-with-editors/form-api/Events/onExternalMouseUp.md)
+- [onExternalMouseUp](/docs/plugin-and-macros/interacting-with-editors/api-by-editor-type/form-api/Events/onExternalMouseUp.md)
 - [onTranslate](/docs/plugin-and-macros/structure/localization.md#applying-translations-to-plugin)
-- [executeMethod ("PasteHtml")](/docs/plugin-and-macros/interacting-with-editors/text-document-api/Methods/PasteHtml.md)
+- [executeMethod ("PasteHtml")](/docs/plugin-and-macros/interacting-with-editors/api-by-editor-type/text-document-api/Methods/PasteHtml.md)
 - [resizeWindow](/docs/plugin-and-macros/customization/windows-and-panels.md#interacting-with-a-window)
 
 ## Support

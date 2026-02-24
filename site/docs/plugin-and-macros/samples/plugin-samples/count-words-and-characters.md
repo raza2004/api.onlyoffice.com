@@ -133,7 +133,7 @@ Repository on GitHub: [wordscounter](https://github.com/ONLYOFFICE/onlyoffice.gi
 
 - [button](/docs/plugin-and-macros/customization/buttons.md)
 - [init](/docs/plugin-and-macros/interacting-with-editors/overview/#how-it-works)
-- [onTargetPositionChanged](/docs/plugin-and-macros/interacting-with-editors/form-api/Events/onTargetPositionChanged.md)
+- [onTargetPositionChanged](/docs/plugin-and-macros/interacting-with-editors/api-by-editor-type/form-api/Events/onTargetPositionChanged.md)
 - [onTranslate](/docs/plugin-and-macros/structure/localization.md#applying-translations-to-plugin)
 
 ## Support

@@ -99,8 +99,8 @@ Repository on GitHub: [example_work_with_content_controls_content](https://githu
 - [button](/docs/plugin-and-macros/customization/buttons.md)
 - [init](/docs/plugin-and-macros/interacting-with-editors/overview/#how-it-works)
 - executeMethod ("[GetAllContentControls](/docs/office-api/usage-api/text-document-api/ApiBlockLvlSdt/Methods/GetAllContentControls.md)")
-- [executeMethod ("PasteText")](/docs/plugin-and-macros/interacting-with-editors/text-document-api/Methods/PasteText.md)
-- executeMethod ("[SelectContentControl](/docs/plugin-and-macros/interacting-with-editors/text-document-api/Methods/SelectContentControl.md)")
+- [executeMethod ("PasteText")](/docs/plugin-and-macros/interacting-with-editors/api-by-editor-type/text-document-api/Methods/PasteText.md)
+- executeMethod ("[SelectContentControl](/docs/plugin-and-macros/interacting-with-editors/api-by-editor-type/text-document-api/Methods/SelectContentControl.md)")
 - [Asc.scope](/docs/plugin-and-macros/interacting-with-editors/overview/how-to-call-commands.md#ascscope-object) object
 
 ## Support

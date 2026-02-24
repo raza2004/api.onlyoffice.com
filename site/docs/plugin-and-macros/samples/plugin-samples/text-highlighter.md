@@ -136,7 +136,7 @@ Repository on GitHub: [texthighlighter](https://github.com/raza2004/onlyoffice.g
 - [callCommand](/docs/plugin-and-macros/interacting-with-editors/overview/#callcommand) - Execute document operations
 - [executeMethod ("Search")](/docs/office-api/usage-api/text-document-api/ApiParagraph/Methods/Search) - Search for text in the document
 - [executeMethod ("GetRangeBySelect")](/docs/plugin-and-macros/interacting-with-editors/common-api/Methods/GetRangeBySelect) - Get the selected range
-- [executeMethod ("Undo")](/docs/plugin-and-macros/interacting-with-editors/text-document-api/Methods/Undo/) - Undo the last operation
+- [executeMethod ("Undo")](/docs/plugin-and-macros/interacting-with-editors/api-by-editor-type/text-document-api/Methods/Undo/) - Undo the last operation
 
 ### Events
 
