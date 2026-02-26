@@ -2,7 +2,7 @@
 sidebar_position: -1
 ---
 
-# Error handling & validation
+# Error handling and validation
 
 ## Overview
 
