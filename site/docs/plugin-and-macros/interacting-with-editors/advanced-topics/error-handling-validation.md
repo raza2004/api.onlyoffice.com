@@ -595,22 +595,11 @@ try {
 
 ### Validate early
 
+**Error name:** Late validation causing deep failures
+
+:::warning[Wrong]
+
 ```javascript
-// ✅ Good - Validate before processing
-function processData(data) {
-  if (!data || typeof data !== 'object') {
-    throw new Error('Invalid data: object expected');
-  }
-
-  if (!data.required Field) {
-    throw new Error('Missing required field');
-  }
-
-  // Proceed with processing
-  return transform(data);
-}
-
-// ❌ Bad - Processing then discovering errors
 function processData(data) {
   const step1 = transform(data); // May fail deep in processing
   const step2 = validate(step1); // Too late
@@ -618,27 +607,70 @@ function processData(data) {
 }
 ```
 
-### Provide actionable errors
+:::
+
+:::tip[Correct]
 
 ```javascript
-// ❌ Bad - Vague error
-throw new Error("Invalid input");
+function processData(data) {
+  if (!data || typeof data !== "object") {
+    throw new Error("Invalid data: object expected");
+  }
 
-// ✅ Good - Specific and actionable
+  if (!data.requiredField) {
+    throw new Error("Missing required field");
+  }
+
+  // Proceed with processing
+  return transform(data);
+}
+```
+
+:::
+
+Error output: TypeError: Cannot read property 'requiredField' of undefined - occurs deep in the call stack.
+
+### Provide actionable errors
+
+**Error name:** Vague error messages
+
+:::warning[Wrong]
+
+```javascript
+throw new Error("Invalid input");
+```
+
+:::
+
+:::tip[Correct]
+
+```javascript
 throw new Error("Email format is invalid. Please use format: user@example.com");
 ```
 
+:::
+
+Error output: User sees "Invalid input" with no guidance on how to fix it.
+
 ### Don't swallow errors silently
 
+**Error name:** Silent error suppression
+
+:::warning[Wrong]
+
 ```javascript
-// ❌ Bad - Silent failure
 try {
   riskyOperation();
 } catch (error) {
   // Nothing - user doesn't know it failed
 }
+```
 
-// ✅ Good - Log and notify
+:::
+
+:::tip[Correct]
+
+```javascript
 try {
   riskyOperation();
 } catch (error) {
@@ -646,6 +678,10 @@ try {
   showError("Unable to complete operation");
 }
 ```
+
+:::
+
+Error output: Operation fails silently - no feedback to user or developer, making debugging impossible.
 
 ## Conclusion
 

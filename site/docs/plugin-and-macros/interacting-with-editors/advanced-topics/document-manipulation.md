@@ -472,15 +472,23 @@ window.Asc.plugin.callCommand(function () {
 
 ### Use efficient operations
 
+**Error name:** Multiple document operations in loop
+
+:::warning[Wrong]
+
 ```javascript
-// ❌ Bad - Multiple document operations
 paragraphs.forEach(function (para) {
   window.Asc.plugin.callCommand(function () {
     // Calling API for each paragraph
   }, false);
 });
+```
 
-// ✅ Good - Single batch operation
+:::
+
+:::tip[Correct]
+
+```javascript
 window.Asc.plugin.callCommand(function () {
   paragraphs.forEach(function (para) {
     // Process all paragraphs in one call
@@ -488,7 +496,31 @@ window.Asc.plugin.callCommand(function () {
 }, false);
 ```
 
+:::
+
+Error output: Poor performance - Multiple API calls slow down execution significantly.
+
 ### Validate before manipulation
+
+**Error name:** Missing validation before processing
+
+:::warning[Wrong]
+
+```javascript
+window.Asc.plugin.callCommand(function () {
+  const doc = Api.GetDocument();
+  const paragraphs = doc.GetAllParagraphs();
+
+  // Process without checking
+  paragraphs.forEach(function (para) {
+    para.SetTextPr(textPr);
+  });
+}, false);
+```
+
+:::
+
+:::tip[Correct]
 
 ```javascript
 window.Asc.plugin.callCommand(function () {
@@ -506,7 +538,30 @@ window.Asc.plugin.callCommand(function () {
 }, false);
 ```
 
+:::
+
+Error output: Runtime error - "Cannot read property 'forEach' of undefined" when document is empty.
+
 ### Provide feedback for long operations
+
+**Error name:** No user feedback during processing
+
+:::warning[Wrong]
+
+```javascript
+function processLargeDocument() {
+  // No feedback - user doesn't know what's happening
+  window.Asc.plugin.callCommand(function () {
+    const doc = Api.GetDocument();
+    // Long operation that takes time
+    return "Complete";
+  }, false);
+}
+```
+
+:::
+
+:::tip[Correct]
 
 ```javascript
 function processLargeDocument() {
@@ -524,6 +579,10 @@ window.Asc.plugin.onCommandCallback = function (result) {
   showMessage("Document processed: " + result);
 };
 ```
+
+:::
+
+Error output: User experience issue - Plugin appears frozen, users may think it crashed.
 
 ## Conclusion
 

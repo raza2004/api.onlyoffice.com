@@ -116,13 +116,21 @@ function handleEmptySelection() {
 
 Use event delegation for better performance with multiple similar elements:
 
+**Error name:** Multiple individual event listeners
+
+:::warning[Wrong]
+
 ```javascript
-// ❌ Bad - Multiple individual listeners
 document.querySelectorAll(".action-btn").forEach((btn) => {
   btn.addEventListener("click", handleClick);
 });
+```
 
-// ✅ Good - Single delegated listener
+:::
+
+:::tip[Correct]
+
+```javascript
 document.getElementById("container").addEventListener("click", function (e) {
   if (e.target.classList.contains("action-btn")) {
     const action = e.target.dataset.action;
@@ -141,6 +149,10 @@ function handleAction(action, element) {
   }
 }
 ```
+
+:::
+
+Error output: Performance issue - Creating many listeners consumes memory and slows down the page.
 
 ### Debouncing events
 
@@ -586,16 +598,28 @@ window.Asc.plugin.button = function (id) {
 
 ### Use meaningful event names
 
+**Error name:** Generic event names
+
+:::warning[Wrong]
+
 ```javascript
-// ❌ Bad - Generic names
 eventBus.emit("update", data);
 eventBus.emit("change", value);
+```
 
-// ✅ Good - Descriptive names
+:::
+
+:::tip[Correct]
+
+```javascript
 eventBus.emit("user:profile:updated", userProfile);
 eventBus.emit("document:selection:changed", selection);
 eventBus.emit("api:data:loaded", apiResponse);
 ```
+
+:::
+
+Error output: Maintainability issue - Generic names make it unclear what event does, leading to confusion in large codebases.
 
 ### Document event contracts
 
