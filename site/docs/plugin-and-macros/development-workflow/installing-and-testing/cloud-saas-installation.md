@@ -301,7 +301,7 @@ window.Asc.plugin.init = function() {
 **Required connectivity:**
 - Stable internet connection
 - Minimum 1 Mbps upload/download
-- Low latency (&lt;100ms recommended)
+- Low latency (<100ms recommended)
 - WebSocket support
 
 **Test network conditions:**

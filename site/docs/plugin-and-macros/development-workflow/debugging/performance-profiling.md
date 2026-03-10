@@ -585,7 +585,7 @@ rum.trackPageLoad();
 ### Runtime
 - [ ] No memory leaks
 - [ ] Smooth scrolling (60 FPS)
-- [ ] Fast interactions (&lt;100ms)
+- [ ] Fast interactions (<100ms)
 - [ ] Efficient event handlers
 
 ### Network

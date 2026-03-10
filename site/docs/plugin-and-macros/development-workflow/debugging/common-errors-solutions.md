@@ -365,7 +365,7 @@ fetch('/api/data')
 ```
 :::
 
-Error output: "SyntaxError: Unexpected token &lt; in JSON at position 0"
+Error output: "SyntaxError: Unexpected token < in JSON at position 0"
 
 ### LocalStorage quota exceeded
 
