@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # Docs (on-premises) installation
 
 ## Overview
@@ -41,6 +45,7 @@ Docker provides the easiest and fastest way to get ONLYOFFICE Docs running.
 ### Install Docker
 
 **Ubuntu/Debian:**
+
 ```bash
 # Update package list
 sudo apt-get update
@@ -57,6 +62,7 @@ docker --version
 ```
 
 **CentOS/RHEL:**
+
 ```bash
 # Install Docker
 sudo yum install docker
@@ -110,12 +116,14 @@ exit
 ### Mount plugins directory (recommended)
 
 Stop and remove the existing container:
+
 ```bash
 sudo docker stop onlyoffice-docs
 sudo docker rm onlyoffice-docs
 ```
 
 Run with plugins volume mounted:
+
 ```bash
 sudo docker run -i -t -d -p 80:80 \
     --name onlyoffice-docs \
@@ -178,8 +186,9 @@ sudo chmod -R 755 /var/www/onlyoffice/documentserver/sdkjs-plugins
 For more complex setups with databases and services:
 
 **docker-compose.yml:**
+
 ```yaml
-version: '3'
+version: "3"
 services:
   onlyoffice-documentserver:
     image: onlyoffice/documentserver:latest
@@ -204,7 +213,7 @@ services:
       - /app/onlyoffice/plugins:/var/www/onlyoffice/documentserver/sdkjs-plugins
     stdin_open: true
     restart: always
-    
+
   onlyoffice-postgresql:
     image: postgres:13
     container_name: onlyoffice-postgresql
@@ -215,7 +224,7 @@ services:
     volumes:
       - postgresql_data:/var/lib/postgresql/data
     restart: always
-    
+
   onlyoffice-rabbitmq:
     image: rabbitmq:3-management
     container_name: onlyoffice-rabbitmq
@@ -226,6 +235,7 @@ volumes:
 ```
 
 **Start services:**
+
 ```bash
 sudo docker-compose up -d
 
@@ -297,27 +307,27 @@ sudo systemctl restart onlyoffice-documentserver
 ```html
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>ONLYOFFICE Integration</title>
     <script src="http://your-server-ip/web-apps/apps/api/documents/api.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <div id="placeholder"></div>
     <script>
-        new DocsAPI.DocEditor("placeholder", {
-            "document": {
-                "fileType": "docx",
-                "key": "unique-document-key",
-                "title": "Test Document.docx",
-                "url": "http://your-server/document.docx"
-            },
-            "documentType": "word",
-            "editorConfig": {
-                "callbackUrl": "http://your-server/callback"
-            }
-        });
+      new DocsAPI.DocEditor("placeholder", {
+        document: {
+          fileType: "docx",
+          key: "unique-document-key",
+          title: "Test Document.docx",
+          url: "http://your-server/document.docx",
+        },
+        documentType: "word",
+        editorConfig: {
+          callbackUrl: "http://your-server/callback",
+        },
+      });
     </script>
-</body>
+  </body>
 </html>
 ```
 
@@ -337,13 +347,16 @@ sudo systemctl restart onlyoffice-documentserver
 **Error name:** Port 80 or 443 already in use
 
 :::warning[Wrong]
+
 ```bash
 # Running without checking port availability
 sudo docker run -p 80:80 onlyoffice/documentserver
 ```
+
 :::
 
 :::tip[Correct]
+
 ```bash
 # Check if port is available first
 sudo lsof -i :80
@@ -354,6 +367,7 @@ sudo docker run -p 8080:80 onlyoffice/documentserver
 # Or stop service using the port
 sudo systemctl stop apache2  # Example
 ```
+
 :::
 
 Error output: "docker: Error response from daemon: driver failed programming external connectivity on endpoint: Bind for 0.0.0.0:80 failed: port is already allocated."
@@ -363,13 +377,16 @@ Error output: "docker: Error response from daemon: driver failed programming ext
 **Error name:** Not enough disk space for installation
 
 :::warning[Wrong]
+
 ```bash
 # Installing without checking disk space
 sudo apt-get install onlyoffice-documentserver
 ```
+
 :::
 
 :::tip[Correct]
+
 ```bash
 # Check available disk space first
 df -h
@@ -382,6 +399,7 @@ sudo docker system prune
 # Then install
 sudo apt-get install onlyoffice-documentserver
 ```
+
 :::
 
 Error output: "No space left on device" during installation.
@@ -391,13 +409,16 @@ Error output: "No space left on device" during installation.
 **Error name:** Cannot write to plugins directory
 
 :::warning[Wrong]
+
 ```bash
 # Copying plugin without proper permissions
 cp -r my-plugin /var/www/onlyoffice/documentserver/sdkjs-plugins/
 ```
+
 :::
 
 :::tip[Correct]
+
 ```bash
 # Use sudo for system directories
 sudo cp -r my-plugin /var/www/onlyoffice/documentserver/sdkjs-plugins/
@@ -408,6 +429,7 @@ sudo chown -R ds:ds /var/www/onlyoffice/documentserver/sdkjs-plugins/my-plugin
 # Set proper permissions
 sudo chmod -R 755 /var/www/onlyoffice/documentserver/sdkjs-plugins/my-plugin
 ```
+
 :::
 
 Error output: "Permission denied" when copying files.
@@ -417,14 +439,17 @@ Error output: "Permission denied" when copying files.
 **Error name:** Docker container exits immediately
 
 :::warning[Wrong]
+
 ```bash
 # Running container without checking logs
 sudo docker run onlyoffice/documentserver
 # Container exits...
 ```
+
 :::
 
 :::tip[Correct]
+
 ```bash
 # Check container logs
 sudo docker logs onlyoffice-docs
@@ -440,6 +465,7 @@ sudo docker run -i -t -d -p 80:80 \
     -v /app/onlyoffice/DocumentServer/logs:/var/log/onlyoffice \
     onlyoffice/documentserver
 ```
+
 :::
 
 Error output: Container status shows "Exited (1)" - check logs for specific error.
@@ -449,6 +475,7 @@ Error output: Container status shows "Exited (1)" - check logs for specific erro
 ### Start/stop/restart
 
 **Docker:**
+
 ```bash
 sudo docker stop onlyoffice-docs
 sudo docker start onlyoffice-docs
@@ -456,6 +483,7 @@ sudo docker restart onlyoffice-docs
 ```
 
 **Package installation:**
+
 ```bash
 sudo systemctl stop onlyoffice-documentserver
 sudo systemctl start onlyoffice-documentserver
@@ -465,6 +493,7 @@ sudo systemctl restart onlyoffice-documentserver
 ### View logs
 
 **Docker:**
+
 ```bash
 # Live logs
 sudo docker logs -f onlyoffice-docs
@@ -474,6 +503,7 @@ sudo docker logs --tail 100 onlyoffice-docs
 ```
 
 **Package installation:**
+
 ```bash
 # View logs
 sudo tail -f /var/log/onlyoffice/documentserver/*.log
@@ -482,6 +512,7 @@ sudo tail -f /var/log/onlyoffice/documentserver/*.log
 ### Update ONLYOFFICE Docs
 
 **Docker:**
+
 ```bash
 # Pull latest image
 sudo docker pull onlyoffice/documentserver:latest
@@ -499,6 +530,7 @@ sudo docker run -i -t -d -p 80:80 \
 ```
 
 **Package installation:**
+
 ```bash
 # Update
 sudo apt-get update
@@ -510,6 +542,7 @@ sudo apt-get upgrade onlyoffice-documentserver
 ### Increase number of workers
 
 Edit `/etc/onlyoffice/documentserver/local.json`:
+
 ```json
 {
   "services": {
@@ -549,7 +582,7 @@ Edit `/etc/onlyoffice/documentserver/local.json`:
 
 - Set up [test environment](./test-environment-setup.md)
 - Learn about [Cloud/SaaS installation](./cloud-saas-installation.md)
-- Configure your [development workflow](/docs/plugin-and-macros/development-workflow/overview.md)
+- Configure your [development workflow](/docs/plugin-and-macros/get-started/get-started)
 
 ## Additional resources
 

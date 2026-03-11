@@ -1,3 +1,7 @@
+---
+sidebar_position: 4
+---
+
 # Test environment setup
 
 ## Overview
@@ -21,6 +25,7 @@ A complete test environment includes:
 **VS Code (recommended):**
 
 Install extensions:
+
 ```bash
 # Via VS Code extensions marketplace
 - ESLint
@@ -31,6 +36,7 @@ Install extensions:
 ```
 
 **Workspace settings (.vscode/settings.json):**
+
 ```json
 {
   "editor.formatOnSave": true,
@@ -46,6 +52,7 @@ Install extensions:
 ### Version control setup
 
 **Initialize Git repository:**
+
 ```bash
 # Navigate to your plugin directory
 cd ~/onlyoffice-plugins/my-plugin
@@ -73,6 +80,7 @@ git commit -m "Initial commit: Plugin structure"
 ### Package manager setup
 
 **Initialize npm (optional but recommended):**
+
 ```bash
 # Create package.json
 npm init -y
@@ -84,6 +92,7 @@ npm install --save-dev eslint prettier
 ```
 
 **package.json:**
+
 ```json
 {
   "name": "my-onlyoffice-plugin",
@@ -109,6 +118,7 @@ npm install --save-dev eslint prettier
 Create test documents for different scenarios:
 
 **Basic test documents:**
+
 ```
 test-docs/
 ├── empty.docx          # Empty document
@@ -124,6 +134,7 @@ test-docs/
 ### Sample data for testing
 
 **test-data.json:**
+
 ```json
 {
   "sampleTexts": [
@@ -132,14 +143,11 @@ test-docs/
     "Test with special characters: @#$%^&*()",
     "Test with unicode: 你好世界 مرحبا العالم"
   ],
-  "sampleUrls": [
-    "https://www.example.com",
-    "https://www.test.org/page?id=123"
-  ],
+  "sampleUrls": ["https://www.example.com", "https://www.test.org/page?id=123"],
   "sampleData": {
     "users": [
-      {"id": 1, "name": "Alice"},
-      {"id": 2, "name": "Bob"}
+      { "id": 1, "name": "Alice" },
+      { "id": 2, "name": "Bob" }
     ]
   }
 }
@@ -150,10 +158,12 @@ test-docs/
 ### Manual testing checklist
 
 **test-checklist.md:**
+
 ```markdown
 # Plugin Testing Checklist
 
 ## Basic Functionality
+
 - [ ] Plugin appears in Plugins menu
 - [ ] Plugin opens without errors
 - [ ] UI displays correctly
@@ -161,23 +171,27 @@ test-docs/
 - [ ] Plugin closes properly
 
 ## Core Features
+
 - [ ] Feature 1 works as expected
 - [ ] Feature 2 works as expected
 - [ ] Error handling works
 - [ ] Success messages display
 
 ## Browser Testing
+
 - [ ] Chrome (latest)
 - [ ] Firefox (latest)
 - [ ] Safari (latest)
 - [ ] Edge (latest)
 
 ## Editor Testing
+
 - [ ] Document Editor
 - [ ] Spreadsheet Editor
 - [ ] Presentation Editor
 
 ## Edge Cases
+
 - [ ] Empty document
 - [ ] No selection
 - [ ] Large document (50+ pages)
@@ -188,10 +202,11 @@ test-docs/
 ### Automated testing setup
 
 **Create test script (test.js):**
+
 ```javascript
 // Simple test runner for plugin
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 class PluginTester {
   constructor(pluginPath) {
@@ -199,41 +214,41 @@ class PluginTester {
     this.results = {
       passed: 0,
       failed: 0,
-      errors: []
+      errors: [],
     };
   }
-  
+
   // Test 1: Config file exists and is valid JSON
   testConfigExists() {
-    const configPath = path.join(this.pluginPath, 'config.json');
-    
+    const configPath = path.join(this.pluginPath, "config.json");
+
     try {
       if (!fs.existsSync(configPath)) {
-        throw new Error('config.json not found');
+        throw new Error("config.json not found");
       }
-      
-      const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-      
+
+      const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
+
       if (!config.name || !config.guid || !config.version) {
-        throw new Error('config.json missing required fields');
+        throw new Error("config.json missing required fields");
       }
-      
-      console.log('✓ config.json is valid');
+
+      console.log("✓ config.json is valid");
       this.results.passed++;
     } catch (error) {
-      console.error('✗ config.json test failed:', error.message);
+      console.error("✗ config.json test failed:", error.message);
       this.results.failed++;
       this.results.errors.push(error.message);
     }
   }
-  
+
   // Test 2: Required files exist
   testRequiredFiles() {
-    const requiredFiles = ['index.html', 'config.json'];
-    
-    requiredFiles.forEach(file => {
+    const requiredFiles = ["index.html", "config.json"];
+
+    requiredFiles.forEach((file) => {
       const filePath = path.join(this.pluginPath, file);
-      
+
       if (fs.existsSync(filePath)) {
         console.log(`✓ ${file} exists`);
         this.results.passed++;
@@ -244,56 +259,57 @@ class PluginTester {
       }
     });
   }
-  
+
   // Test 3: HTML file structure
   testHtmlStructure() {
-    const htmlPath = path.join(this.pluginPath, 'index.html');
-    
+    const htmlPath = path.join(this.pluginPath, "index.html");
+
     try {
-      const html = fs.readFileSync(htmlPath, 'utf8');
-      
-      if (!html.includes('window.Asc.plugin')) {
-        throw new Error('HTML missing window.Asc.plugin initialization');
+      const html = fs.readFileSync(htmlPath, "utf8");
+
+      if (!html.includes("window.Asc.plugin")) {
+        throw new Error("HTML missing window.Asc.plugin initialization");
       }
-      
-      console.log('✓ HTML structure is valid');
+
+      console.log("✓ HTML structure is valid");
       this.results.passed++;
     } catch (error) {
-      console.error('✗ HTML structure test failed:', error.message);
+      console.error("✗ HTML structure test failed:", error.message);
       this.results.failed++;
       this.results.errors.push(error.message);
     }
   }
-  
+
   // Run all tests
   runAll() {
-    console.log('\n=== Running Plugin Tests ===\n');
-    
+    console.log("\n=== Running Plugin Tests ===\n");
+
     this.testConfigExists();
     this.testRequiredFiles();
     this.testHtmlStructure();
-    
-    console.log('\n=== Test Results ===');
+
+    console.log("\n=== Test Results ===");
     console.log(`Passed: ${this.results.passed}`);
     console.log(`Failed: ${this.results.failed}`);
-    
+
     if (this.results.errors.length > 0) {
-      console.log('\nErrors:');
-      this.results.errors.forEach(err => console.log(`  - ${err}`));
+      console.log("\nErrors:");
+      this.results.errors.forEach((err) => console.log(`  - ${err}`));
     }
-    
+
     return this.results.failed === 0;
   }
 }
 
 // Run tests
-const tester = new PluginTester('./');
+const tester = new PluginTester("./");
 const success = tester.runAll();
 
 process.exit(success ? 0 : 1);
 ```
 
 **Run tests:**
+
 ```bash
 node test.js
 ```
@@ -305,11 +321,13 @@ node test.js
 **In ONLYOFFICE Desktop Editors:**
 
 Windows/Linux:
+
 ```
 Press: Ctrl+Shift+Alt+F12
 ```
 
 macOS:
+
 ```
 Press: Cmd+Option+Shift+F12
 ```
@@ -317,42 +335,43 @@ Press: Cmd+Option+Shift+F12
 ### Console logging best practices
 
 **logging.js:**
+
 ```javascript
 // Debug logging utility
 const DEBUG = true; // Set to false in production
 
 const Logger = {
-  info: function(message, data) {
+  info: function (message, data) {
     if (DEBUG) {
-      console.log(`[INFO] ${message}`, data || '');
+      console.log(`[INFO] ${message}`, data || "");
     }
   },
-  
-  warn: function(message, data) {
+
+  warn: function (message, data) {
     if (DEBUG) {
-      console.warn(`[WARN] ${message}`, data || '');
+      console.warn(`[WARN] ${message}`, data || "");
     }
   },
-  
-  error: function(message, error) {
+
+  error: function (message, error) {
     console.error(`[ERROR] ${message}`, error);
   },
-  
-  trace: function(message) {
+
+  trace: function (message) {
     if (DEBUG) {
       console.trace(message);
     }
-  }
+  },
 };
 
 // Usage in plugin
-window.Asc.plugin.init = function(data) {
-  Logger.info('Plugin initialized', data);
-  
+window.Asc.plugin.init = function (data) {
+  Logger.info("Plugin initialized", data);
+
   try {
     // Plugin code
   } catch (error) {
-    Logger.error('Initialization failed', error);
+    Logger.error("Initialization failed", error);
   }
 };
 ```
@@ -360,50 +379,51 @@ window.Asc.plugin.init = function(data) {
 ### Error tracking
 
 **error-handler.js:**
+
 ```javascript
 // Global error handler
-window.addEventListener('error', function(event) {
+window.addEventListener("error", function (event) {
   const errorLog = {
     timestamp: new Date().toISOString(),
     message: event.message,
     filename: event.filename,
     line: event.lineno,
     column: event.colno,
-    stack: event.error ? event.error.stack : 'No stack trace'
+    stack: event.error ? event.error.stack : "No stack trace",
   };
-  
-  console.error('Caught error:', errorLog);
-  
+
+  console.error("Caught error:", errorLog);
+
   // Save to local storage for debugging
   saveErrorLog(errorLog);
 });
 
 function saveErrorLog(errorLog) {
   try {
-    const errors = JSON.parse(localStorage.getItem('pluginErrors') || '[]');
+    const errors = JSON.parse(localStorage.getItem("pluginErrors") || "[]");
     errors.push(errorLog);
-    
+
     // Keep last 50 errors
     if (errors.length > 50) {
       errors.shift();
     }
-    
-    localStorage.setItem('pluginErrors', JSON.stringify(errors));
+
+    localStorage.setItem("pluginErrors", JSON.stringify(errors));
   } catch (e) {
-    console.error('Failed to save error log:', e);
+    console.error("Failed to save error log:", e);
   }
 }
 
 function getErrorLogs() {
   try {
-    return JSON.parse(localStorage.getItem('pluginErrors') || '[]');
+    return JSON.parse(localStorage.getItem("pluginErrors") || "[]");
   } catch (e) {
     return [];
   }
 }
 
 function clearErrorLogs() {
-  localStorage.removeItem('pluginErrors');
+  localStorage.removeItem("pluginErrors");
 }
 ```
 
@@ -412,52 +432,53 @@ function clearErrorLogs() {
 ### Performance monitoring
 
 **performance.js:**
+
 ```javascript
 class PerformanceMonitor {
   constructor() {
     this.metrics = [];
   }
-  
+
   start(label) {
     performance.mark(`${label}-start`);
   }
-  
+
   end(label) {
     performance.mark(`${label}-end`);
     performance.measure(label, `${label}-start`, `${label}-end`);
-    
+
     const measure = performance.getEntriesByName(label)[0];
     const duration = measure.duration;
-    
+
     this.metrics.push({
       label: label,
       duration: duration,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
-    
+
     console.log(`${label}: ${duration.toFixed(2)}ms`);
-    
+
     return duration;
   }
-  
+
   getMetrics() {
     return this.metrics;
   }
-  
+
   getSummary() {
     const summary = {};
-    
-    this.metrics.forEach(metric => {
+
+    this.metrics.forEach((metric) => {
       if (!summary[metric.label]) {
         summary[metric.label] = {
           count: 0,
           total: 0,
           avg: 0,
           min: Infinity,
-          max: 0
+          max: 0,
         };
       }
-      
+
       const s = summary[metric.label];
       s.count++;
       s.total += metric.duration;
@@ -465,7 +486,7 @@ class PerformanceMonitor {
       s.min = Math.min(s.min, metric.duration);
       s.max = Math.max(s.max, metric.duration);
     });
-    
+
     return summary;
   }
 }
@@ -473,12 +494,12 @@ class PerformanceMonitor {
 // Usage
 const perfMon = new PerformanceMonitor();
 
-window.Asc.plugin.init = function() {
-  perfMon.start('initialization');
-  
+window.Asc.plugin.init = function () {
+  perfMon.start("initialization");
+
   // Plugin initialization code
-  
-  perfMon.end('initialization');
+
+  perfMon.end("initialization");
 };
 ```
 
@@ -489,6 +510,7 @@ window.Asc.plugin.init = function() {
 **Error name:** Changes not reflected after modification
 
 :::warning[Wrong]
+
 ```javascript
 // Making changes without restarting ONLYOFFICE
 // File: plugin.js
@@ -496,9 +518,11 @@ function oldFunction() {
   // Old code still running
 }
 ```
+
 :::
 
 :::tip[Correct]
+
 ```bash
 # After making changes:
 # 1. Save all files
@@ -509,6 +533,7 @@ function oldFunction() {
 # Or use symbolic link for faster iteration
 ln -s ~/dev/my-plugin /path/to/plugins/my-plugin
 ```
+
 :::
 
 Error output: Old version of plugin still running despite code changes.
@@ -518,13 +543,16 @@ Error output: Old version of plugin still running despite code changes.
 **Error name:** DevTools not appearing
 
 :::warning[Wrong]
+
 ```
 # Pressing wrong key combination
 Pressing: Ctrl+Shift+I (this is for browser, not ONLYOFFICE)
 ```
+
 :::
 
 :::tip[Correct]
+
 ```
 # Correct key combination for ONLYOFFICE
 Windows/Linux: Ctrl+Shift+Alt+F12
@@ -535,6 +563,7 @@ macOS: Cmd+Option+Shift+F12
 2. Try right-clicking on plugin and select "Inspect"
 3. Update ONLYOFFICE to latest version
 ```
+
 :::
 
 Error output: Developer tools don't open.
@@ -544,33 +573,37 @@ Error output: Developer tools don't open.
 **Error name:** Sample data fails to load in plugin
 
 :::warning[Wrong]
+
 ```javascript
 // Loading data with incorrect path
-fetch('./test-data.json')
-  .then(response => response.json())
-  .then(data => {
+fetch("./test-data.json")
+  .then((response) => response.json())
+  .then((data) => {
     // Data not loading...
   });
 ```
+
 :::
 
 :::tip[Correct]
+
 ```javascript
 // Use correct relative path from plugin root
-fetch('test-data/samples.json')
-  .then(response => {
+fetch("test-data/samples.json")
+  .then((response) => {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     return response.json();
   })
-  .then(data => {
-    console.log('Data loaded:', data);
+  .then((data) => {
+    console.log("Data loaded:", data);
   })
-  .catch(error => {
-    console.error('Failed to load test data:', error);
+  .catch((error) => {
+    console.error("Failed to load test data:", error);
   });
 ```
+
 :::
 
 Error output: "Failed to fetch" or 404 error in console.
@@ -580,6 +613,7 @@ Error output: "Failed to fetch" or 404 error in console.
 ### Creating test reports
 
 **test-report-template.md:**
+
 ```markdown
 # Test Report: [Plugin Name] v[Version]
 
@@ -588,6 +622,7 @@ Error output: "Failed to fetch" or 404 error in console.
 **Environment:** [ONLYOFFICE version, OS, Browser]
 
 ## Test Summary
+
 - Total Tests: X
 - Passed: Y
 - Failed: Z
@@ -596,11 +631,13 @@ Error output: "Failed to fetch" or 404 error in console.
 ## Test Results
 
 ### Feature: [Feature Name]
+
 **Test Case:** [Description]
 **Status:** Pass/Fail
 **Notes:** [Any observations]
 
 ### Bugs Found
+
 1. **Bug Title**
    - Severity: High/Medium/Low
    - Steps to reproduce:
@@ -609,6 +646,7 @@ Error output: "Failed to fetch" or 404 error in console.
    - Screenshot: [if applicable]
 
 ## Recommendations
+
 [Any suggestions for improvement]
 ```
 

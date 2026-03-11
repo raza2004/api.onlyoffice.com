@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 # Desktop Editors installation
 
 ## Overview
@@ -159,11 +163,13 @@ After installation, you need to know where to place your plugins:
 ### Windows
 
 **System installation:**
+
 ```
 C:\Program Files\ONLYOFFICE\DesktopEditors\editors\sdkjs-plugins\
 ```
 
 **User installation:**
+
 ```
 C:\Users\[USERNAME]\AppData\Local\ONLYOFFICE\DesktopEditors\editors\sdkjs-plugins\
 ```
@@ -177,11 +183,13 @@ C:\Users\[USERNAME]\AppData\Local\ONLYOFFICE\DesktopEditors\editors\sdkjs-plugin
 ### Linux
 
 **System installation:**
+
 ```
 /opt/onlyoffice/desktopeditors/editors/sdkjs-plugins/
 ```
 
 **User installation:**
+
 ```
 ~/.local/share/ONLYOFFICE/DesktopEditors/editors/sdkjs-plugins/
 ```
@@ -207,11 +215,13 @@ cd my-first-plugin
 Link your development folder to the plugins directory:
 
 **Windows (Run as Administrator):**
+
 ```cmd
 mklink /D "C:\Program Files\ONLYOFFICE\DesktopEditors\editors\sdkjs-plugins\my-first-plugin" "C:\dev\my-first-plugin"
 ```
 
 **macOS/Linux:**
+
 ```bash
 ln -s ~/onlyoffice-plugins/my-first-plugin /Applications/ONLYOFFICE.app/Contents/Resources/editors/sdkjs-plugins/my-first-plugin
 ```
@@ -221,10 +231,12 @@ ln -s ~/onlyoffice-plugins/my-first-plugin /Applications/ONLYOFFICE.app/Contents
 To access browser DevTools for debugging:
 
 **Windows/Linux:**
+
 - Press `Ctrl+Shift+Alt+F12` to enable developer mode
 - Right-click on a plugin and select "Inspect Element"
 
 **macOS:**
+
 - Press `Cmd+Option+Shift+F12` to enable developer mode
 - Right-click on a plugin and select "Inspect Element"
 
@@ -235,6 +247,7 @@ To access browser DevTools for debugging:
 Create these files in your plugin folder:
 
 **config.json:**
+
 ```json
 {
   "name": "Installation Test",
@@ -252,45 +265,49 @@ Create these files in your plugin folder:
 ```
 
 **index.html:**
+
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Installation Test</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            text-align: center;
-        }
-        .success {
-            color: #4caf50;
-            font-size: 18px;
-            font-weight: bold;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        text-align: center;
+      }
+      .success {
+        color: #4caf50;
+        font-size: 18px;
+        font-weight: bold;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <h2>Installation Test</h2>
     <p class="success">✓ ONLYOFFICE Desktop Editors is correctly installed!</p>
     <p>Your development environment is ready.</p>
     <button onclick="testAPI()">Test API</button>
-    
+
     <script>
-        function testAPI() {
-            window.Asc.plugin.executeMethod("PasteText", ["Installation successful!"]);
-        }
-        
-        window.Asc.plugin.init = function() {
-            console.log("Test plugin initialized");
-        };
+      function testAPI() {
+        window.Asc.plugin.executeMethod("PasteText", [
+          "Installation successful!",
+        ]);
+      }
+
+      window.Asc.plugin.init = function () {
+        console.log("Test plugin initialized");
+      };
     </script>
-</body>
+  </body>
 </html>
 ```
 
 **icon.png:**
+
 - Create or download a 48x48 pixel PNG image
 
 ### Verify plugin appears
@@ -310,17 +327,21 @@ Create these files in your plugin folder:
 **Error name:** Cannot locate plugins directory
 
 :::warning[Wrong]
+
 ```bash
 # Wrong path - using incorrect directory
 cd /opt/onlyoffice/plugins/
 ```
+
 :::
 
 :::tip[Correct]
+
 ```bash
 # Correct path - exact location
 cd /opt/onlyoffice/desktopeditors/editors/sdkjs-plugins/
 ```
+
 :::
 
 Error output: Directory not found - plugins won't load if placed in wrong location.
@@ -330,18 +351,22 @@ Error output: Directory not found - plugins won't load if placed in wrong locati
 **Error name:** Insufficient permissions to access plugins folder
 
 :::warning[Wrong]
+
 ```bash
 # Attempting to create plugin without permissions
 mkdir /opt/onlyoffice/desktopeditors/editors/sdkjs-plugins/my-plugin
 ```
+
 :::
 
 :::tip[Correct]
+
 ```bash
 # Using sudo for system directories
 sudo mkdir /opt/onlyoffice/desktopeditors/editors/sdkjs-plugins/my-plugin
 sudo chmod -R 755 /opt/onlyoffice/desktopeditors/editors/sdkjs-plugins/my-plugin
 ```
+
 :::
 
 Error output: Permission denied - Cannot create directory.
@@ -351,6 +376,7 @@ Error output: Permission denied - Cannot create directory.
 **Error name:** Plugin not visible in Plugins menu
 
 **Common causes:**
+
 - Plugin folder not in correct location
 - ONLYOFFICE not restarted after adding plugin
 - Invalid `config.json` file
@@ -359,6 +385,7 @@ Error output: Permission denied - Cannot create directory.
 **Solutions:**
 
 :::tip[Checklist]
+
 ```bash
 # 1. Verify plugin location
 ls -la /path/to/sdkjs-plugins/your-plugin
@@ -376,6 +403,7 @@ chmod -R 755 /path/to/your-plugin/
 # 5. Restart ONLYOFFICE completely
 # Fully quit (not just close windows) and relaunch
 ```
+
 :::
 
 Error output: Plugin does not appear in menu after installation.
@@ -385,18 +413,22 @@ Error output: Plugin does not appear in menu after installation.
 **Error name:** Symbolic link creation failed
 
 :::warning[Wrong]
+
 ```cmd
 # Windows - Not running as Administrator
 mklink /D "C:\Program Files\ONLYOFFICE\..." "C:\dev\my-plugin"
 ```
+
 :::
 
 :::tip[Correct]
+
 ```cmd
 # Windows - Run Command Prompt as Administrator first
 # Then create symbolic link
 mklink /D "C:\Program Files\ONLYOFFICE\DesktopEditors\editors\sdkjs-plugins\my-plugin" "C:\dev\my-plugin"
 ```
+
 :::
 
 Error output: "You do not have sufficient privilege to perform this operation."
@@ -406,15 +438,18 @@ Error output: "You do not have sufficient privilege to perform this operation."
 To update to the latest version:
 
 **Windows:**
+
 - Download the latest installer
 - Run it (existing installation will be detected)
 - Choose "Update" option
 
 **macOS:**
+
 - Download the latest `.dmg`
 - Drag to Applications (replace existing)
 
 **Linux:**
+
 ```bash
 # Ubuntu/Debian
 sudo apt-get update
@@ -429,15 +464,18 @@ sudo yum update onlyoffice-desktopeditors
 ## Uninstalling (if needed)
 
 **Windows:**
+
 - Control Panel → Programs → Uninstall a program
 - Select ONLYOFFICE Desktop Editors
 - Click Uninstall
 
 **macOS:**
+
 - Drag ONLYOFFICE from Applications to Trash
 - Empty Trash
 
 **Linux:**
+
 ```bash
 # Ubuntu/Debian
 sudo apt-get remove onlyoffice-desktopeditors
@@ -452,8 +490,8 @@ Now that ONLYOFFICE Desktop Editors is installed:
 
 1. Set up your [test environment](./test-environment-setup.md)
 2. Create your first plugin
-3. Learn about the [plugin development workflow](../overview.md)
-4. Explore the [plugin API documentation](/docs/plugin-and-macros/interacting-with-editors/overview.md)
+3. Learn about the [plugin development workflow](/docs/plugin-and-macros/get-started/get-started)
+4. Explore the [plugin API documentation](/docs/plugin-and-macros/interacting-with-editors/overview/overview)
 
 ## Additional resources
 
