@@ -448,7 +448,7 @@ window.Asc.plugin.init = async function() {
 
 ## Debugging desktop plugins
 
-### Enable Developer Tools
+### Enable developer tools
 
 **Windows/Linux:**
 ```

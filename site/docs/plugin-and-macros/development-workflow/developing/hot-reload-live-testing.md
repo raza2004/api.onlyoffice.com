@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# Hot reload & live testing
+# Hot reload and live testing
 
 ## Overview
 
@@ -20,12 +20,12 @@ Hot reload and live testing capabilities significantly speed up plugin developme
 5. Open document
 6. Open plugin
 7. Test changes
-8. Repeat for every change ⏱️ **2-3 minutes per iteration**
+8. Repeat for every change — **2-3 minutes per iteration**
 
 **With hot reload:**
 1. Make code changes
 2. Save files
-3. See changes immediately ⏱️ **2-3 seconds per iteration**
+3. See changes immediately — **2-3 seconds per iteration**
 
 ### Benefits
 
@@ -221,7 +221,7 @@ app.listen(PORT, () => {
   // Show hot reload indicator
   const indicator = document.createElement('div');
   indicator.id = 'hot-reload-indicator';
-  indicator.textContent = '🔥';
+  indicator.textContent = 'HR';
   indicator.style.cssText = `
     position: fixed;
     bottom: 10px;
@@ -335,7 +335,7 @@ Error output: Developer wastes time manually reloading after each change.
 const chokidar = require('chokidar');
 const { execSync } = require('child_process');
 
-console.log('👀 Watching for changes...\n');
+console.log('Watching for changes...\n');
 
 const watcher = chokidar.watch([
   '*.js',
@@ -348,17 +348,17 @@ const watcher = chokidar.watch([
 });
 
 watcher.on('change', (path) => {
-  console.log(`\n📝 Changed: ${path}`);
-  console.log('🧪 Running tests...\n');
+  console.log(`\nChanged: ${path}`);
+  console.log('Running tests...\n');
   
   try {
     execSync('npm test', { stdio: 'inherit' });
-    console.log('\n✅ Tests passed!');
+    console.log('\nTests passed!');
   } catch (error) {
-    console.log('\n❌ Tests failed!');
+    console.log('\nTests failed!');
   }
-  
-  console.log('\n👀 Watching for changes...\n');
+
+  console.log('\nWatching for changes...\n');
 });
 ```
 

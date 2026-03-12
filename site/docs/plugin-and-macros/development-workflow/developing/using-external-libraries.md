@@ -8,7 +8,7 @@ sidebar_position: 4
 
 External libraries can significantly enhance your ONLYOFFICE plugin's capabilities by providing pre-built functionality for common tasks. This guide covers how to integrate, manage, and optimize external libraries in your plugins.
 
-## Why use external libraries?
+## Why use external libraries
 
 ### Benefits
 

@@ -8,7 +8,7 @@ sidebar_position: 7
 
 ONLYOFFICE provides a comprehensive UI component library that enables plugin developers to create consistent, professional interfaces that match the editor's native look and feel. This library includes pre-built components for common UI patterns, reducing development time and ensuring visual consistency.
 
-## What is the UI component library?
+## What is the UI component library
 
 The UI component library is a collection of ready-to-use interface components designed specifically for ONLYOFFICE plugins. These components are:
 

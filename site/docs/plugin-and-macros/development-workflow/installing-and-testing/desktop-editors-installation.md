@@ -89,7 +89,7 @@ dir DesktopEditors.exe
 If you see a security warning:
 
 1. Open System Preferences
-2. Go to Security & Privacy
+2. Go to Security and Privacy
 3. Click "Open Anyway" next to the ONLYOFFICE message
 4. Confirm by clicking "Open"
 
@@ -143,7 +143,7 @@ sudo yum install onlyoffice-desktopeditors
 which onlyoffice-desktopeditors
 ```
 
-#### AppImage (Universal Linux)
+#### AppImage (universal Linux)
 
 ```bash
 # Download AppImage
