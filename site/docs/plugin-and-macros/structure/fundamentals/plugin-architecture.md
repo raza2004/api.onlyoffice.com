@@ -1,14 +1,18 @@
+---
+sidebar_position: -1
+---
+
 # Plugin architecture
 
 ## Overview
 
-OnlyOffice plugins follow a modular architecture that separates the plugin interface from the core editor functionality. Understanding this architecture is essential for building robust and efficient plugins.
+ONLYOFFICE plugins follow a modular architecture that separates the plugin interface from the core editor functionality. Understanding this architecture is essential for building robust and efficient plugins.
 
 ## Architectural components
 
-### 1. plugin container (iframe)
+### 1. Plugin container (iframe)
 
-Each plugin runs in an isolated iframe environment within the OnlyOffice editor. This provides:
+Each plugin runs in an isolated iframe environment within the ONLYOFFICE editor. This provides:
 
 - **Security isolation** - Plugins cannot directly access the editor's internal state
 - **Cross-platform compatibility** - Plugins work consistently across different platforms
@@ -16,7 +20,7 @@ Each plugin runs in an isolated iframe environment within the OnlyOffice editor.
 
 ```
 ┌─────────────────────────────────────┐
-│   OnlyOffice Editor (Main Window)  │
+│   ONLYOFFICE Editor (Main Window)  │
 │  ┌───────────────────────────────┐ │
 │  │   Plugin Iframe (Sandboxed)   │ │
 │  │   ┌─────────────────────────┐ │ │
@@ -27,7 +31,7 @@ Each plugin runs in an isolated iframe environment within the OnlyOffice editor.
 └─────────────────────────────────────┘
 ```
 
-### 2. communication layer (api bridge)
+### 2. Communication layer (api bridge)
 
 Plugins communicate with the editor through the `window.Asc.plugin` API interface:
 
@@ -41,7 +45,7 @@ window.Asc.plugin.init = function (data) {
 };
 ```
 
-### 3. file system structure
+### 3. File system structure
 
 A typical plugin consists of these core components:
 
@@ -254,7 +258,7 @@ window.Asc.plugin.init = function (data) {
 
 ## Extension points
 
-OnlyOffice provides several extension points:
+ONLYOFFICE provides several extension points:
 
 1. **API Methods** - Predefined functions to manipulate content
 2. **Events** - React to editor and user actions

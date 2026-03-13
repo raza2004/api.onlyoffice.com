@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: -3
 ---
 
 # Logging best practices
@@ -566,47 +566,141 @@ console.log = new Proxy(console.log, {
 ```
 
 ## Best practices summary
-
-### Do's
-
+ 
+### Structured logging
+ 
+**Error name:** Unstructured log messages
+ 
+:::warning[Wrong]
 ```javascript
-// ✅ Use structured logging
+// Unstructured, unclear logs
+console.log('click');
+console.log(userId);
+```
+:::
+ 
+:::tip[Correct]
+```javascript
+// Use structured logging with context
 console.group('User Action');
 console.log('Action:', 'button-click');
 console.log('User:', userId);
 console.groupEnd();
-
-// ✅ Log with context
+ 
+// Log with clear context
 console.log('[Plugin] [Init] Starting initialization');
-
-// ✅ Use appropriate log levels
+```
+:::
+ 
+Error output: Console cluttered, hard to trace events.
+ 
+### Appropriate log levels
+ 
+**Error name:** Using wrong log level
+ 
+:::warning[Wrong]
+```javascript
+// Everything as console.log
+console.log('Error occurred:', error);
+console.log('Warning:', warning);
+console.log('Info:', info);
+```
+:::
+ 
+:::tip[Correct]
+```javascript
+// Use appropriate log levels
 console.error('Critical error:', error);
 console.warn('Warning:', warning);
 console.log('Info:', info);
-
-// ✅ Clean up in production
-if (DEBUG_MODE) {
-  console.log('Debug info');
-}
 ```
-
-### Don'ts
-
+:::
+ 
+Error output: Unable to filter by severity, critical issues missed.
+ 
+### Sensitive data protection
+ 
+**Error name:** Logging sensitive information
+ 
+:::warning[Wrong]
 ```javascript
-// ❌ Don't log sensitive data
-console.log('Password:', password); // Never!
-
-// ❌ Don't spam console
-for (let i = 0; i < 1000; i++) {
-  console.log('iteration:', i); // Too much!
-}
-
-// ❌ Don't log large objects
-console.log(hugeObject); // Crashes browser
-
-// ❌ Don't leave debugger statements
-debugger; // Remove before production
+// Logging passwords and secrets
+console.log('Password:', password);
+console.log('API Key:', apiKey);
+console.log('User data:', {name, email, creditCard});
 ```
+:::
+ 
+:::tip[Correct]
+```javascript
+// Never log sensitive data
+console.log('Login attempt for user:', username);
+console.log('API call authenticated');
+console.log('User data:', {name, email}); // Exclude sensitive fields
+```
+:::
+ 
+Error output: Security breach, exposed credentials in logs.
+ 
+### Console spam prevention
+ 
+**Error name:** Excessive logging in loops
+ 
+:::warning[Wrong]
+```javascript
+// Logging every iteration
+for (let i = 0; i < 1000; i++) {
+  console.log('iteration:', i);
+}
+ 
+// Logging huge objects
+console.log(hugeObject);
+```
+:::
+ 
+:::tip[Correct]
+```javascript
+// Log summary instead
+console.log('Processing 1000 items...');
+processItems();
+console.log('Processing complete');
+ 
+// Log object size, not content
+console.log(`Object size: ${Object.keys(hugeObject).length} properties`);
+```
+:::
+ 
+Error output: Browser freezes, console becomes unusable.
+ 
+### Production code cleanup
+ 
+**Error name:** Debug code in production
+ 
+:::warning[Wrong]
+```javascript
+// Debug code always running
+console.log('Debug: Processing data');
+debugger;
+console.table(debugData);
+```
+:::
+ 
+:::tip[Correct]
+```javascript
+// Use development flag
+const DEBUG_MODE = window.location.hostname === 'localhost';
+ 
+if (DEBUG_MODE) {
+  console.log('Debug: Processing data');
+  console.table(debugData);
+}
+ 
+// Remove all debugger statements
+// debugger; ← Never commit this
+```
+:::
+ 
+Error output: Production plugin slow, console cluttered, potential security issues.
 
 ## Conclusion
 

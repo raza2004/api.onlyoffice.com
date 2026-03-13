@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: -1
 ---
 
 # Browser DevTools guide
@@ -429,18 +429,18 @@ Console → Create live expression
 ```javascript
 // Log important events
 window.Asc.plugin.init = function(data) {
-  console.log('🚀 Plugin initialized', data);
+  console.log('Plugin initialized', data);
 };
 
 window.Asc.plugin.button = function(id) {
-  console.log('🔘 Button clicked:', id);
+  console.log('Button clicked:', id);
 };
 
 // Log errors prominently
-console.error('❌ Critical error:', error);
+console.error('Critical error:', error);
 
 // Log warnings
-console.warn('⚠️ Deprecated method used');
+console.warn('Deprecated method used');
 ```
 
 ### Clean up debug code
