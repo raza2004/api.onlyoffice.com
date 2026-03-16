@@ -463,24 +463,31 @@ Make components work across different plugin sizes:
 - **Lazy load resources** - Load heavy components only when needed
 - **Cache DOM references** - Store frequently accessed elements
 
-**Example:**
+**Error name:** Repeated DOM queries causing performance issues
 
+:::warning[Wrong]
 ```javascript
-// ✅ Good - Cache DOM references
+document.getElementById('container').querySelector('.btn').addEventListener('click', ...);
+document.getElementById('container').querySelector('.btn').classList.add('active');
+```
+:::
+
+:::tip[Correct]
+```javascript
+// Cache DOM references
 const container = document.getElementById('container');
 const buttons = container.querySelectorAll('.btn');
 
-// ✅ Good - Event delegation
+// Use event delegation
 container.addEventListener('click', function(e) {
   if (e.target.classList.contains('btn')) {
     handleButtonClick(e.target);
   }
 });
-
-// ❌ Bad - Repeated DOM queries
-document.getElementById('container').querySelector('.btn').addEventListener('click', ...);
-document.getElementById('container').querySelector('.btn').classList.add('active');
 ```
+:::
+
+Error output: Repeated DOM queries are slow; cached references and event delegation improve performance.
 
 ## Component examples
 

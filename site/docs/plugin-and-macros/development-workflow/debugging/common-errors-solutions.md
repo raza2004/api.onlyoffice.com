@@ -19,7 +19,7 @@ This guide covers the most common errors encountered during ONLYOFFICE plugin de
 - No errors in console
 - Config file present
 
-:::warning[Common causes]
+:::warning[Wrong]
 ```json
 // Wrong GUID format
 {
@@ -41,7 +41,7 @@ This guide covers the most common errors encountered during ONLYOFFICE plugin de
 ```
 :::
 
-:::tip[Solutions]
+:::tip[Correct]
 ```json
 // Correct GUID format
 {

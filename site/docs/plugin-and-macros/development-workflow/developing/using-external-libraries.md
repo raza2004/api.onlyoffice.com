@@ -515,14 +515,21 @@ document.getElementById('chartBtn').addEventListener('click', async () => {
 
 ### Minification and compression
 
-```javascript
-// Prefer minified versions
-// ✅ Good
-<script src="library.min.js"></script>  // 50KB
+**Error name:** Using unminified library
 
-// ❌ Bad
-<script src="library.js"></script>      // 200KB
+:::warning[Wrong]
+```html
+<script src="library.js"></script>
 ```
+:::
+
+:::tip[Correct]
+```html
+<script src="library.min.js"></script>
+```
+:::
+
+Error output: Plugin loads slowly because a large unminified file is included unnecessarily.
 
 ## Handling library conflicts
 

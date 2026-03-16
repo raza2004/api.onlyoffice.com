@@ -195,13 +195,21 @@ Plugins are sandboxed to prevent:
 
 Plugins can only perform actions explicitly allowed by the API:
 
-```javascript
-// ✅ Allowed - Via API
-window.Asc.plugin.executeMethod("PasteText", ["Safe content"]);
+**Error name:** Direct DOM manipulation of editor content
 
-// ❌ Not Allowed - Direct DOM manipulation
+:::warning[Wrong]
+```javascript
 document.querySelector(".editor-content").innerHTML = "Unsafe";
 ```
+:::
+
+:::tip[Correct]
+```javascript
+window.Asc.plugin.executeMethod("PasteText", ["Safe content"]);
+```
+:::
+
+Error output: Direct DOM access is blocked by the plugin sandbox and has no effect on the editor content.
 
 ## Performance best practices
 

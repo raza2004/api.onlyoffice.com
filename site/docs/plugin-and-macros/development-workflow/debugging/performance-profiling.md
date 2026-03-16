@@ -451,14 +451,18 @@ Error output: Plugin becomes unresponsive with large datasets.
 
 ### Optimize loops
 
-```javascript
-// Cache array length
-// ❌ Bad
-for (let i = 0; i < array.length; i++) {
-  // array.length calculated every iteration
-}
+**Error name:** Recalculating array length on every iteration
 
-// ✅ Good
+:::warning[Wrong]
+```javascript
+for (let i = 0; i < array.length; i++) {
+  // array.length recalculated every iteration
+}
+```
+:::
+
+:::tip[Correct]
+```javascript
 const len = array.length;
 for (let i = 0; i < len; i++) {
   // Length cached
@@ -469,6 +473,9 @@ for (const item of array) {
   // Cleaner and just as fast
 }
 ```
+:::
+
+Error output: Unnecessary repeated property access on large arrays slows loop performance.
 
 ### Virtual scrolling for large lists
 
