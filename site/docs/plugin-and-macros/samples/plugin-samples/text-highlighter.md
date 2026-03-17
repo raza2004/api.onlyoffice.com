@@ -1,4 +1,4 @@
-# Text Highlighter
+# Text highlighter
 
 Search for text and apply highlighting, color, and formatting styles in the document. This plugin allows you to find specific words or phrases and customize their appearance with various colors, text formatting options, and highlighting effects.
 
@@ -13,9 +13,9 @@ Search for text and apply highlighting, color, and formatting styles in the docu
 
 ## Installation
 
-Download this plugin from [GitHub](https://github.com/raza2004/onlyoffice.github.io/tree/master/sdkjs-plugins/content/texthighlighter) and install it following the [desktop](/docs/plugin-and-macros/tutorials/installing/onlyoffice-desktop-editors.md), [on-premises](/docs/plugin-and-macros/tutorials/installing/onlyoffice-docs-on-premises.md), or [cloud](/docs/plugin-and-macros/tutorials/installing/onlyoffice-cloud.md) installation instructions.
+Download this plugin from [GitHub](https://github.com/ONLYOFFICE/onlyoffice.github.io/tree/master/sdkjs-plugins/content/texthighlighter) and install it following the [desktop](/docs/plugin-and-macros/tutorials/installing/onlyoffice-desktop-editors.md), [on-premises](/docs/plugin-and-macros/tutorials/installing/onlyoffice-docs-on-premises.md), or [cloud](/docs/plugin-and-macros/tutorials/installing/onlyoffice-cloud.md) installation instructions.
 
-The plugin guid: `{07FD8DFA-DFE0-4089-AL24-0730933CC804}`.
+The plugin guid: `{07FD8DFA-DFE0-4089-A124-0730933CC804}`.
 
 ## Usage
 
@@ -33,9 +33,9 @@ The plugin guid: `{07FD8DFA-DFE0-4089-AL24-0730933CC804}`.
    - Click **Revert** to undo the highlighting.
    - Click **Highlight more** to search for a different term.
 
-## Plugin Structure
+## Plugin structure
 
-Repository on GitHub: [texthighlighter](https://github.com/raza2004/onlyoffice.github.io/tree/master/sdkjs-plugins/content/texthighlighter).
+Repository on GitHub: [texthighlighter](https://github.com/ONLYOFFICE/onlyoffice.github.io/tree/master/sdkjs-plugins/content/texthighlighter).
 
 1. *config.json*, *index.html*, and *code.js* - Core plugin files
 
@@ -43,7 +43,7 @@ Repository on GitHub: [texthighlighter](https://github.com/raza2004/onlyoffice.g
 
 3. The *translations* folder contains translations into Russian, German, Spanish, Czech, and French.
 
-4. **styles.css** - Custom styling for the plugin interface including dark mode support and resposive layout.
+4. **styles.css** - Custom styling for the plugin interface including dark mode support and responsive layout.
 
 5. **Third-party libraries**:
    - [Pickr](https://simonwep.github.io/pickr/) - A modern, lightweight color picker library. License: [MIT License](https://github.com/Simonwep/pickr/blob/master/LICENSE).
@@ -61,8 +61,8 @@ Repository on GitHub: [texthighlighter](https://github.com/raza2004/onlyoffice.g
     "fr": "Surligneur de texte",
   },
   "version": "1.0.0",
-  "baseUrl": "https://raza2004.github.io/onlyoffice.github.io/sdkjs-plugins/content/texthighlighter/",
-  "guid": "asc.{07FD8DFA-DFE0-4089-AL24-0730933CC804}",
+  "baseUrl": "https://onlyoffice.github.io/sdkjs-plugins/content/texthighlighter/",
+  "guid": "asc.{07FD8DFA-DFE0-4089-A124-0730933CC804}",
   "manifestVersion": "7.3.0",
   "variations": [
     {
@@ -129,7 +129,7 @@ Repository on GitHub: [texthighlighter](https://github.com/raza2004/onlyoffice.g
 }
 ```
 
-## Methods and Events
+## Methods and events
 
 ### Methods
 

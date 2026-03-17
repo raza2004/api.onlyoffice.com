@@ -35,7 +35,7 @@ To develop a plugin for ONLYOFFICE Desktop Editors, follow the steps below.
      </TabItem>
    </Tabs>
 
-   The folder name is the plugin GUID from `config.json` (for example, `{07FD8DFA-DFE0-4089-AL24-0730933CC80A}`).
+   The folder name is the plugin GUID from `config.json` (for example, `{07FD8DFA-DFE0-4089-A124-0730933CC80A}`).
 
 4. Edit your plugin files in the `sdkjs-plugins` folder and reload the plugin to see changes.
 

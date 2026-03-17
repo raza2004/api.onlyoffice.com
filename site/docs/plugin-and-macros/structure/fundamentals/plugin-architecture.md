@@ -31,7 +31,7 @@ Each plugin runs in an isolated iframe environment within the ONLYOFFICE editor.
 └─────────────────────────────────────┘
 ```
 
-### 2. Communication layer (api bridge)
+### 2. Communication layer (API bridge)
 
 Plugins communicate with the editor through the `window.Asc.plugin` API interface:
 
