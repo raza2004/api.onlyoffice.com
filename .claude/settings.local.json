@@ -6,7 +6,11 @@
       "Bash(xargs -a /tmp/changed_files.txt grep -n \"AL24\\\\|[A-Z][A-Z]*[GHIJKLMNOPQRSTUVWXYZ][A-Z]*[0-9]\\\\{2\\\\}\")",
       "Bash(xargs -a /tmp/changed_files.txt grep -in \"GerVersion\\\\|GetVesion\\\\|exectue\\\\|Suppport\\\\|suport\\\\|initaliz\\\\|onyl\\\\|Onyloffice\")",
       "Bash(xargs -a /tmp/changed_files.txt grep -in \"typo\\\\|teh \\\\|fo the\\\\|dont \\\\|doesnt \\\\|wasnt \\\\|isnt \\\\|hasnt \\\\|shouldnt \\\\|couldnt \\\\|wouldnt \\\\|recieve\\\\|occured\\\\|seperate\\\\|occurance\\\\|acheive\\\\|dependancy\\\\|enviroment\\\\|existance\\\\|proccessing\\\\|sucess\\\\|truely\\\\|usefull\\\\|untill\\\\|resposive\")",
-      "Bash(grep -v \"\\\\`\\\\`\\\\`\")"
+      "Bash(grep -v \"\\\\`\\\\`\\\\`\")",
+      "Bash(__NEW_LINE_6861be01fb33fcdd__ en_file=\"/c/Users/ok/Desktop/api.onlyoffice.com/site/docs/plugin-and-macros/interacting-with-editors/overview/overview.md\")",
+      "Bash(cn_file=\"/c/Users/ok/Desktop/api.onlyoffice.com/i18n/zh-CN/docusaurus-plugin-content-docs-api/current/docs/plugin-and-macros/interacting-with-editors/overview/overview.md\")",
+      "Bash(__NEW_LINE_6861be01fb33fcdd__ echo:*)",
+      "Read(//c/Users/ok/Desktop/api.onlyoffice.com/**)"
     ]
   }
 }

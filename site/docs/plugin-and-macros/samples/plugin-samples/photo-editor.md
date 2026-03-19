@@ -14,7 +14,7 @@ Available by default in the cloud, on-premises and desktop versions of ONLYOFFIC
 
 You can remove it following the [desktop](/docs/plugin-and-macros/tutorials/installing/onlyoffice-desktop-editors.md), [on-premises](/docs/plugin-and-macros/tutorials/installing/onlyoffice-docs-on-premises.md), or [cloud](/docs/plugin-and-macros/tutorials/installing/onlyoffice-cloud.md) installation instructions.
 
-The plugin guid: `{07FD8DFA-DFE0-4089-AL24-0730933CC80A}`.
+The plugin guid: `{07FD8DFA-DFE0-4089-A124-0730933CC80A}`.
 
 ## Usage
 
@@ -53,7 +53,7 @@ Repository on GitHub: [photoeditor](https://github.com/ONLYOFFICE/onlyoffice.git
     "pt-BR": "Editor de foto",
     "de": "Foto-Editor"
   },
-  "guid": "asc.{07FD8DFA-DFE0-4089-AL24-0730933CC80A}",
+  "guid": "asc.{07FD8DFA-DFE0-4089-A124-0730933CC80A}",
   "version": "1.0.1",
   "baseUrl": "",
 
@@ -186,7 +186,7 @@ Repository on GitHub: [photoeditor](https://github.com/ONLYOFFICE/onlyoffice.git
 - [onTranslate](/docs/plugin-and-macros/structure/localization.md#applying-translations-to-plugin)
 - [callCommand](/docs/plugin-and-macros/interacting-with-editors/overview/how-to-call-commands.md#callcommand)
 - [executeMethod ("GetImageDataFromSelection")](/docs/plugin-and-macros/interacting-with-editors/api-by-editor-type/text-document-api/Methods/GetImageDataFromSelection.md)
-- [executeMethod ("GerVersion")](/docs/plugin-and-macros/interacting-with-editors/api-by-editor-type/text-document-api/Methods/GetVersion.md)
+- [executeMethod ("GetVersion")](/docs/plugin-and-macros/interacting-with-editors/api-by-editor-type/text-document-api/Methods/GetVersion.md)
 - [executeMethod ("PutImageDataToSelection")](/docs/plugin-and-macros/interacting-with-editors/api-by-editor-type/text-document-api/Methods/PutImageDataToSelection.md)
 - [resizeWindow](/docs/plugin-and-macros/customization/windows-and-panels.md#interacting-with-a-window)
 - [Asc.scope](/docs/plugin-and-macros/interacting-with-editors/overview/how-to-call-commands.md#ascscope-object) object
