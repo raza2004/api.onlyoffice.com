@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(for d:*)",
+      "Bash(do cat:*)",
+      "Bash(echo \"  <- $d\")",
+      "Bash(done)",
+      "Bash(grep -n \"OnlyOffice\\\\|ONLYOFFICE\" \"c:\\\\Users\\\\ok\\\\Desktop\\\\api.onlyoffice.com\\\\site\\\\docs\\\\plugin-and-macros\\\\ai-features\"/**/*.md)",
+      "Bash(for file:*)",
+      "Bash(do head:*)",
+      "Bash(echo \"Missing frontmatter: $file\")",
+      "Bash(grep -n \"sidebar_position: [0-9]\" \"c:\\\\Users\\\\ok\\\\Desktop\\\\api.onlyoffice.com\\\\site\\\\docs\\\\plugin-and-macros\\\\ai-features\"/**/*.md)"
+    ]
+  }
+}

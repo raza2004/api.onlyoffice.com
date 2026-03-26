@@ -1,5 +1,5 @@
 ---
-sidebar_position: -1
+sidebar_position: 1
 ---
 
 # Creating custom functions (beta)
