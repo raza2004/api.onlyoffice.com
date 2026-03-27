@@ -93,4 +93,4 @@ The following numbered list describes the end-to-end flow for a single AI agent 
    c. Writes results back to the document with a second `Asc.Editor.callCommand`.
 8. `func.call` returns its result to the agent loop.
 9. The agent determines whether further tool calls are needed. If not, it surfaces the final answer to the user.
-10. The plugin calls `window.Asc.plugin.EndAction` to signal that the operation is complete.
+10. The plugin calls `Asc.Editor.callMethod("EndAction", [...])` to signal that the operation is complete.

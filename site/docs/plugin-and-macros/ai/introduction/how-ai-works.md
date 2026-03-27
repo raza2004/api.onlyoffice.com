@@ -31,7 +31,9 @@ User request → Agent → Tool selection → Tool execution → Office API → 
 
 ## When to use custom AI tools
 
-Use custom AI tools when the built-in agent tools do not cover your use case. Common scenarios:
+Use custom AI tools when the built-in agent tools do not cover your use case. Tools are scoped to a specific editor type — register tools in the correct map for the editor your plugin targets.
+
+Common scenarios:
 
 | Scenario | Use custom AI tools |
 |----------|-------------------|

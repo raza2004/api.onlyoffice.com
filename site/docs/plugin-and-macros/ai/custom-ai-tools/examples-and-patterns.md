@@ -12,16 +12,37 @@ A tool that generates content with the AI model and inserts it at the current cu
 
 ``` ts
 WORD_FUNCTIONS.generateSummary = function() {
-    let func = new RegisteredFunction();
-    func.name = "generateSummary";
-    func.params = [
-        "length (string): desired summary length — 'short', 'medium', or 'long' (default is 'medium')"
-    ];
-    func.examples = [
-        "If you need to summarize the document, respond with:\n" +
-        "[functionCalling (generateSummary)]: {\"prompt\": \"Summarize this document\", \"length\": \"medium\"}"
-    ];
-    func.description = "Use this function when the user asks to summarize the document content.";
+    let func = new RegisteredFunction({
+        "name": "generateSummary",
+        "text": "Generate Summary",
+        "description": "Use this function when the user asks to summarize the document content.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "prompt": {
+                    "type": "string",
+                    "description": "The user's instruction."
+                },
+                "length": {
+                    "type": "string",
+                    "enum": ["short", "medium", "long"],
+                    "description": "Desired summary length.",
+                    "default": "medium"
+                }
+            },
+            "required": ["prompt"]
+        },
+        "examples": [
+            {
+                "prompt": "Summarize this document",
+                "arguments": { "prompt": "Summarize this document", "length": "medium" }
+            },
+            {
+                "prompt": "Write a short summary",
+                "arguments": { "prompt": "Write a short summary", "length": "short" }
+            }
+        ]
+    });
 
     func.call = async function(params) {
         let length = params.length || "medium";
@@ -33,24 +54,36 @@ WORD_FUNCTIONS.generateSummary = function() {
         if (!text)
             return;
 
-        let prompt = "Write a " + length + " summary of the following text:\n" + text;
         let requestEngine = AI.Request.create(AI.ActionType.Chat);
         if (!requestEngine)
             return;
 
-        await Asc.Editor.callMethod("StartAction", ["Block", "AI (generateSummary)"]);
+        let prompt = "Write a " + length + " summary of the following text:\n" + text;
+
+        let isSentEndAction = false;
+        async function checkEndAction() {
+            if (!isSentEndAction) {
+                await Asc.Editor.callMethod("EndAction", ["Block", "AI (" + requestEngine.modelUI.name + ")"]);
+                isSentEndAction = true;
+            }
+        }
+
+        await Asc.Editor.callMethod("StartAction", ["Block", "AI (" + requestEngine.modelUI.name + ")"]);
+        await Asc.Editor.callMethod("StartAction", ["GroupActions"]);
 
         await requestEngine.chatRequest(prompt, false, async function(data) {
             if (!data)
                 return;
 
+            await checkEndAction();
             Asc.scope.data = data;
             await Asc.Editor.callCommand(function() {
                 Asc.Library.PasteText(Asc.scope.data);
             });
         });
 
-        await Asc.Editor.callMethod("EndAction", ["Block", "AI (generateSummary)"]);
+        await checkEndAction();
+        await Asc.Editor.callMethod("EndAction", ["GroupActions"]);
     };
 
     return func;
@@ -63,18 +96,35 @@ A tool that applies formatting directly using the Office API, without sending a 
 
 ``` ts
 WORD_FUNCTIONS.applyHeading = function() {
-    let func = new RegisteredFunction();
-    func.name = "applyHeading";
-    func.params = [
-        "level (number): heading level from 1 to 6"
-    ];
-    func.examples = [
-        "If you need to make the selected paragraph a heading, respond with:\n" +
-        "[functionCalling (applyHeading)]: {\"prompt\": \"Make this a heading\", \"level\": 1}",
-        "If you need to apply a level 2 heading, respond with:\n" +
-        "[functionCalling (applyHeading)]: {\"prompt\": \"Heading 2\", \"level\": 2}"
-    ];
-    func.description = "Use this function when the user asks to apply a heading style to the selected paragraph.";
+    let func = new RegisteredFunction({
+        "name": "applyHeading",
+        "text": "Apply Heading Style",
+        "description": "Use this function when the user asks to apply a heading style to the selected paragraph.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "prompt": {
+                    "type": "string",
+                    "description": "The user's instruction."
+                },
+                "level": {
+                    "type": "number",
+                    "description": "Heading level from 1 to 6."
+                }
+            },
+            "required": ["prompt"]
+        },
+        "examples": [
+            {
+                "prompt": "Make this a heading",
+                "arguments": { "prompt": "Make this a heading", "level": 1 }
+            },
+            {
+                "prompt": "Apply heading 2",
+                "arguments": { "prompt": "Apply heading 2", "level": 2 }
+            }
+        ]
+    });
 
     func.call = async function(params) {
         let level = params.level || 1;
@@ -110,14 +160,31 @@ A tool targeting the spreadsheet editor that reads cell data, processes it with 
 
 ``` ts
 CELL_FUNCTIONS.explainCell = function() {
-    let func = new RegisteredFunction();
-    func.name = "explainCell";
-    func.params = [];
-    func.examples = [
-        "If you need to explain the content of the selected cell, respond with:\n" +
-        "[functionCalling (explainCell)]: {\"prompt\": \"Explain this cell\"}"
-    ];
-    func.description = "Use this function to explain the value or formula of the currently selected cell.";
+    let func = new RegisteredFunction({
+        "name": "explainCell",
+        "text": "Explain Cell",
+        "description": "Use this function to explain the value or formula of the currently selected cell.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "prompt": {
+                    "type": "string",
+                    "description": "The user's instruction."
+                }
+            },
+            "required": ["prompt"]
+        },
+        "examples": [
+            {
+                "prompt": "Explain this cell",
+                "arguments": { "prompt": "Explain this cell" }
+            },
+            {
+                "prompt": "What does this formula do?",
+                "arguments": { "prompt": "What does this formula do?" }
+            }
+        ]
+    });
 
     func.call = async function(params) {
         let cellValue = await Asc.Editor.callCommand(function() {
@@ -135,19 +202,30 @@ CELL_FUNCTIONS.explainCell = function() {
 
         let prompt = params.prompt + ":\n" + cellValue;
 
-        await Asc.Editor.callMethod("StartAction", ["Block", "AI (explainCell)"]);
+        let isSentEndAction = false;
+        async function checkEndAction() {
+            if (!isSentEndAction) {
+                await Asc.Editor.callMethod("EndAction", ["Block", "AI (" + requestEngine.modelUI.name + ")"]);
+                isSentEndAction = true;
+            }
+        }
+
+        await Asc.Editor.callMethod("StartAction", ["Block", "AI (" + requestEngine.modelUI.name + ")"]);
+        await Asc.Editor.callMethod("StartAction", ["GroupActions"]);
 
         await requestEngine.chatRequest(prompt, false, async function(data) {
             if (!data)
                 return;
 
+            await checkEndAction();
             Asc.scope.data = data;
             await Asc.Editor.callCommand(function() {
                 Asc.Library.PasteText(Asc.scope.data);
             });
         });
 
-        await Asc.Editor.callMethod("EndAction", ["Block", "AI (explainCell)"]);
+        await checkEndAction();
+        await Asc.Editor.callMethod("EndAction", ["GroupActions"]);
     };
 
     return func;

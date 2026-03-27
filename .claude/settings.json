@@ -9,7 +9,13 @@
       "Bash(for file:*)",
       "Bash(do head:*)",
       "Bash(echo \"Missing frontmatter: $file\")",
-      "Bash(grep -n \"sidebar_position: [0-9]\" \"c:\\\\Users\\\\ok\\\\Desktop\\\\api.onlyoffice.com\\\\site\\\\docs\\\\plugin-and-macros\\\\ai-features\"/**/*.md)"
+      "Bash(grep -n \"sidebar_position: [0-9]\" \"c:\\\\Users\\\\ok\\\\Desktop\\\\api.onlyoffice.com\\\\site\\\\docs\\\\plugin-and-macros\\\\ai-features\"/**/*.md)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(curl -s \"https://raw.githubusercontent.com/ONLYOFFICE/onlyoffice.github.io/master/sdkjs-plugins/content/ai/.dev/helpers/word/rewrite-text.js\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/ONLYOFFICE/onlyoffice.github.io/master/sdkjs-plugins/content/ai/.dev/helpers/cell/explain-formula.js\")"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\ok\\Desktop\\api.onlyoffice.com\\site\\docs\\plugin-and-macros\\ai\\configuration"
     ]
   }
 }

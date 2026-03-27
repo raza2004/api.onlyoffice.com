@@ -23,7 +23,7 @@ To use AI functions, follow the steps below:
 
 ## Example: the commentText function {#example}
 
-The `commentText` function allows adding AI generated comments directly to the document. Here’s how it works:
+The `commentText` function allows adding AI generated comments directly to the document. Here's how it works:
 
 1. Select a word to leave a comment on.
 2. Open the AI agent dialog box (`CTRL + /`).
@@ -45,45 +45,59 @@ The process of adding a custom function involves two main phases:
 
 ### Function registration {#registration}
 
-To add a new function, the `RegisteredFunction` object is used, which adds metadata and logic of the custom function to the AI agent.
+To add a new function, the `RegisteredFunction` object is used. Pass a configuration object to the constructor with the tool's metadata:
 
 #### Parameters {#parameters}
 
-| Name        | Type            | Example                                                                                                                                                           | Description                                                                      |
-|-------------|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
-| name        | string          | `"commentText"`                                                                                                                                                   | The function name.                                                               |
-| params      | list of strings | `["type (string): whether to add as a 'comment' or as a 'footnote' (default is 'comment')"]`                                                                      | A list of parameters the function expects from the AI.                           |
-| examples    | list of strings | `["If you need to explain selected text as a comment, respond with:\n" + "[functionCalling (commentText)]: {'prompt' : 'Explain this text', 'type': 'comment'}"]` | The examples of correct function calls for the AI.                               |
-| description | list of strings | `"Use this function if you asked to comment or explain anything."`                                                                                                | The function description which explains to the AI what the function is used for. |
+| Name | Type | Example | Description |
+|---|---|---|---|
+| `name` | `string` | `"commentText"` | The function name. |
+| `text` | `string` | `"Add Comment to Text"` | A short display name shown in the UI. |
+| `description` | `string` | `"Adds a comment or footnote to explain the selected text."` | Explains to the AI what the function is used for. |
+| `parameters` | `object` | JSON Schema object | Describes the arguments the AI agent will pass to the function. |
+| `examples` | `object[]` | Array of `{prompt, arguments}` objects | Example invocations that teach the agent when and how to call the function. |
 
-#### Example {#example}
+#### Example {#example-registration}
 
 ``` ts
-let func = new RegisteredFunction();
-func.name = "commentText";
-func.params = [
-    "type (string): whether to add as a 'comment' or as a 'footnote' (default is 'comment')"
-];
-
-func.examples = [
-    "If you need to explain selected text as a comment, respond with:\n" +
-    "[functionCalling (commentText)]: {\"prompt\" : \"Explain this text\", \"type\": \"comment\"}",
-
-
-    "If you need to add a footnote to selected text, respond with:\n" +
-    "[functionCalling (commentText)]: {\"prompt\" : \"Add a footnote to this text\", \"type\": \"footnote\"}",
-
-
-    "If you need to comment selected text, respond with:\n" +
-    "[functionCalling (commentText)]: {\"prompt\" : \"Comment this text\"}",
-
-
-    "If you need to explain selected text as a footnote, respond with:\n" +
-    "[functionCalling (commentText)]: {\"prompt\" : \"Explain this text\", \"type\": \"footnote\"}"
-]
+let func = new RegisteredFunction({
+    "name": "commentText",
+    "text": "Add Comment to Text",
+    "description": "Adds a comment or footnote to explain or annotate the selected text. If no text is selected, works with the current paragraph.",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "prompt": {
+                "type": "string",
+                "description": "The instruction for what to explain or comment about the text."
+            },
+            "type": {
+                "type": "string",
+                "enum": ["comment", "footnote"],
+                "description": "Whether to add as a comment or as a footnote.",
+                "default": "comment"
+            }
+        },
+        "required": ["prompt"]
+    },
+    "examples": [
+        {
+            "prompt": "Explain this text",
+            "arguments": { "prompt": "Explain this text", "type": "comment" }
+        },
+        {
+            "prompt": "Add a historical context as footnote",
+            "arguments": { "prompt": "Add historical context", "type": "footnote" }
+        },
+        {
+            "prompt": "Comment on the significance",
+            "arguments": { "prompt": "Explain significance", "type": "comment" }
+        }
+    ]
+});
 ```
 
-These parameters are used by the AI. The `RegisteredFunction()` object is defined in the [helperFuncs.js](https://github.com/ONLYOFFICE/onlyoffice.github.io/blob/master/sdkjs-plugins/content/ai/scripts/helpers/helperFuncs.js) file .
+The `RegisteredFunction()` object is defined in the [helperFuncs.js](https://github.com/ONLYOFFICE/onlyoffice.github.io/blob/master/sdkjs-plugins/content/ai/scripts/helpers/helperFuncs.js) file.
 
 ### Function execution {#execution}
 
@@ -96,19 +110,15 @@ After registering the function, implement the actual logic that gets executed wh
         let type = params.type;
         let isFootnote = "footnote" === type;
 
-        // Executes a block of code inside the editor's context using the office-js API.
         let text = await Asc.Editor.callCommand(function(){
             let doc = Api.GetDocument();
-            // Gets the current selected text range.
             let range = doc.GetRangeBySelect();
             let text = range ? range.GetText() : "";
             if (!text)
             {
                 text = doc.GetCurrentWord();
-                // Selects the current word so comments can be applied to it.
                 doc.SelectCurrentWord();
             }
-
             return text;
         });
     };
@@ -120,10 +130,9 @@ After registering the function, implement the actual logic that gets executed wh
     let argPromt = params.prompt + ":\n" + text;
     ```
 
-3. Initialize a request engine for communicating with the AI model using `AI.Request.create`. The object is defined in [engine.js](https://github.com/ONLYOFFICE/onlyoffice.github.io/blob/master/sdkjs-plugins/content/ai/scripts/engine/engine.js#L554) file. This object facilitates sending a request to the AI model:
+3. Initialize a request engine using `AI.Request.create`. The object is defined in the [engine.js](https://github.com/ONLYOFFICE/onlyoffice.github.io/blob/master/sdkjs-plugins/content/ai/scripts/engine/engine.js) file:
 
     ``` ts
-    // Initializes a request engine for communicating with the AI model (e.g. Chat, Translation).
     let requestEngine = AI.Request.create(AI.ActionType.Chat);
     if (!requestEngine)
         return;
@@ -132,7 +141,6 @@ After registering the function, implement the actual logic that gets executed wh
 4. Send the request using `chatRequest()` and receive the result in a callback:
 
     ``` ts
-    // Sends a prompt to the AI model and processes the response via callback. Can stream or wait.
     let result = await requestEngine.chatRequest(argPromt, false, async function(data) {
         if (!data)
             return;
@@ -141,237 +149,147 @@ After registering the function, implement the actual logic that gets executed wh
 
 5. Insert the response as a comment or footnote using [AddFootnote()](../../office-api/usage-api/text-document-api/ApiDocument/Methods/AddFootnote.md) or [AddComment()](../../office-api/usage-api/text-document-api/ApiDocument/Methods/AddComment.md).
 
-    `AddFootnote` implementation:
-
-    ``` ts
-    if (isFootnote)
-    {
-        let addFootnote = true;
-        // Sends a prompt to the AI model and processes the response via callback. Can stream or wait.
-        let result = await requestEngine.chatRequest(argPromt, false, async function(data) {
-            if (!data)
-                return;
-
-            // Marks the end of a logical group or block action in the editor.
-            await checkEndAction();
-            Asc.scope.data = data;
-            Asc.scope.model = requestEngine.modelUI.name;
-
-            if (addFootnote)
-            {
-                // Executes a block of code inside the editor's context using the document model API.
-                await Asc.Editor.callCommand(function(){
-                    // Returns the main document object, which gives access to all editing, structure, and selection APIs.
-                    Api.GetDocument().AddFootnote();
-                });
-                addFootnote = false;
-            }
-            // Inserts the AI-generated result into the document at the current selection or cursor.
-            await Asc.Library.PasteText(data);
-        });
-    };
-    ```
-
-    `AddComment` implementation:
-
-    ``` ts
-    let commentId = null;
-    // Sends a prompt to the AI model and processes the response via callback. Can stream or wait.
-    let result = await requestEngine.chatRequest(argPromt, false, async function(data) {
-        if (!data)
-            return;
-
-        // Marks the end of a logical group or block action in the editor.
-        await checkEndAction();
-        Asc.scope.data = data;
-        Asc.scope.model = requestEngine.modelUI.name;
-        Asc.scope.commentId = commentId;
-
-        // Executes a block of code inside the editor's context using the document model API.
-        commentId = await Asc.Editor.callCommand(function(){
-            // Returns the main document object, which gives access to all editing, structure, and selection APIs.
-            let doc = Api.GetDocument();
-
-            let commentId = Asc.scope.commentId;
-            if (!commentId)
-            {
-                // Gets the current selected text range, which can be modified or annotated.
-                let range = doc.GetRangeBySelect();
-                if (!range)
-                    return null;
-
-                let comment = range.AddComment(Asc.scope.data, Asc.scope.model, "uid" + Asc.scope.model);
-                if (!comment)
-                    return null;
-                doc.ShowComment([comment.GetId()]);
-                    return comment.GetId();
-            }
-
-            let comment = doc.GetCommentById(commentId);
-            if (!comment)
-                return commentId;
-
-            comment.SetText(comment.GetText() + scope.data);
-                return commentId;
-        });
-    });
-    ```
-
-> To ensure the entire block of changes can be rolled back after the request is executed, we use [StartAction](../interacting-with-editors/api-by-editor-type/text-document-api/Methods/StartAction.md) and [EndAction](../interacting-with-editors/api-by-editor-type/text-document-api/Methods/EndAction.md) methods across the `commentText` function.
-
-The entire implementation of the `commentText` function with comments:
+The entire implementation of the `commentText` function:
 
 ``` ts
 (function(){
-    // Defines the commentText function — lets AI insert a comment or footnote for selected text using AI response.
-    WORD_FUNCTIONS.commentText = function()
-    {
-        // Creates a new function object that will be registered and exposed to the AI.
-        let func = new RegisteredFunction();
-        func.name = "commentText";
-        // Lists the parameters expected by the function. These are passed as a JSON object by the AI agent.
-        func.params = [
-            "type (string): whether to add as a 'comment' or as a 'footnote' (default is 'comment')"
-        ];
+    let func = new RegisteredFunction({
+        "name": "commentText",
+        "text": "Add Comment to Text",
+        "description": "Adds a comment or footnote to explain or annotate the selected text. If no text is selected, works with the current paragraph.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "prompt": {
+                    "type": "string",
+                    "description": "The instruction for what to explain or comment about the text."
+                },
+                "type": {
+                    "type": "string",
+                    "enum": ["comment", "footnote"],
+                    "description": "Whether to add as a comment or as a footnote.",
+                    "default": "comment"
+                }
+            },
+            "required": ["prompt"]
+        },
+        "examples": [
+            {
+                "prompt": "Explain this text",
+                "arguments": { "prompt": "Explain this text", "type": "comment" }
+            },
+            {
+                "prompt": "Add a historical context as footnote",
+                "arguments": { "prompt": "Add historical context", "type": "footnote" }
+            },
+            {
+                "prompt": "Comment on the significance",
+                "arguments": { "prompt": "Explain significance", "type": "comment" }
+            }
+        ]
+    });
 
-        // Gives example JSON inputs to teach the AI how to correctly invoke this function.
-        func.examples = [
-            "If you need to explain selected text as a comment, respond with:\n" +
-            "[functionCalling (commentText)]: {\"prompt\" : \"Explain this text\", \"type\": \"comment\"}",
+    func.call = async function(params) {
+        let type = params.type;
+        let isFootnote = "footnote" === type;
 
+        let text = await Asc.Editor.callCommand(function(){
+            let doc = Api.GetDocument();
+            let range = doc.GetRangeBySelect();
+            let text = range ? range.GetText() : "";
+            if (!text)
+            {
+                text = doc.GetCurrentWord();
+                doc.SelectCurrentWord();
+            }
+            return text;
+        });
 
-            "If you need to add a footnote to selected text, respond with:\n" +
-            "[functionCalling (commentText)]: {\"prompt\" : \"Add a footnote to this text\", \"type\": \"footnote\"}",
+        let argPromt = params.prompt + ":\n" + text;
 
+        let requestEngine = AI.Request.create(AI.ActionType.Chat);
+        if (!requestEngine)
+            return;
 
-            "If you need to comment selected text, respond with:\n" +
-            "[functionCalling (commentText)]: {\"prompt\" : \"Comment this text\"}",
+        let isSendedEndLongAction = false;
+        async function checkEndAction() {
+            if (!isSendedEndLongAction) {
+                await Asc.Editor.callMethod("EndAction", ["Block", "AI (" + requestEngine.modelUI.name + ")"]);
+                isSendedEndLongAction = true;
+            }
+        }
 
+        await Asc.Editor.callMethod("StartAction", ["Block", "AI (" + requestEngine.modelUI.name + ")"]);
+        await Asc.Editor.callMethod("StartAction", ["GroupActions"]);
 
-            "If you need to explain selected text as a footnote, respond with:\n" +
-            "[functionCalling (commentText)]: {\"prompt\" : \"Explain this text\", \"type\": \"footnote\"}"
-        ];
-        
-        // The actual logic that gets executed when the AI calls this function.
-        func.call = async function(params) {
-            let type = params.type;
-            let isFootnote = "footnote" === type;
+        if (isFootnote)
+        {
+            let addFootnote = true;
+            let result = await requestEngine.chatRequest(argPromt, false, async function(data) {
+                if (!data)
+                    return;
 
-            // Executes a block of code inside the editor's context using the office-js API.
-            let text = await Asc.Editor.callCommand(function(){
-                let doc = Api.GetDocument();
-                // Gets the current selected text range.
-                let range = doc.GetRangeBySelect();
-                let text = range ? range.GetText() : "";
-                if (!text)
+                await checkEndAction();
+                Asc.scope.data = data;
+                Asc.scope.model = requestEngine.modelUI.name;
+
+                if (addFootnote)
                 {
-                    text = doc.GetCurrentWord();
-                    // Selects the current word so comments can be applied to it.
-                    doc.SelectCurrentWord();
-                }
-
-                return text;
-            });
-
-            let argPromt = params.prompt + ":\n" + text;
-
-            // Initializes a request engine for communicating with the AI model (e.g. Chat, Translation).
-            let requestEngine = AI.Request.create(AI.ActionType.Chat);
-            if (!requestEngine)
-                return;
-
-            let isSendedEndLongAction = false;
-            // Marks the end of a logical group or block action in the editor.
-            async function checkEndAction() {
-                if (!isSendedEndLongAction) {
-                    // Marks the end of a logical group or block action in the editor.
-                    await Asc.Editor.callMethod("EndAction", ["Block", "AI (" + requestEngine.modelUI.name + ")"]);
-                    isSendedEndLongAction = true
-                }
-            }
-
-            // Starts a block action in the editor, used for undo/redo 
-            await Asc.Editor.callMethod("StartAction", ["Block", "AI (" + requestEngine.modelUI.name + ")"]);
-            // Starts a group action in the editor, used for undo/redo
-            await Asc.Editor.callMethod("StartAction", ["GroupActions"]);
-
-            if (isFootnote)
-            {
-                let addFootnote = true;
-                // Sends a prompt to the AI model and processes the response via callback
-                let result = await requestEngine.chatRequest(argPromt, false, async function(data) {
-                    if (!data)
-                        return;
-
-                    // Marks the end of a block action in the editor.
-                    await checkEndAction();
-                    Asc.scope.data = data;
-                    Asc.scope.model = requestEngine.modelUI.name;
-
-                    if (addFootnote)
-                    {
-                        // Executes a block of code inside the editor's context using the  office-js API.
-                        await Asc.Editor.callCommand(function(){
-                            Api.GetDocument().AddFootnote();
-                        });
-                        addFootnote = false;
-                    }
-                    // Inserts the AI-generated result into the document at the current selection or cursor.
-                    await Asc.Library.PasteText(data);
-                });
-            }
-            else 
-            {
-                let commentId = null;
-                // Sends a prompt to the AI model and processes the response via callback.
-                let result = await requestEngine.chatRequest(argPromt, false, async function(data) {
-                    if (!data)
-                        return;
-
-                    // Marks the end of a block action in the editor.
-                    await checkEndAction();
-                    Asc.scope.data = data;
-                    Asc.scope.model = requestEngine.modelUI.name;
-                    Asc.scope.commentId = commentId;
-
-                    // Executes a block of code inside the editor's context using the office-js API.
-                    commentId = await Asc.Editor.callCommand(function(){
-                        let doc = Api.GetDocument();
-
-                        let commentId = Asc.scope.commentId;
-                        if (!commentId)
-                        {
-                            // Gets the current selected text range.
-                            let range = doc.GetRangeBySelect();
-                            if (!range)
-                                return null;
-
-                            let comment = range.AddComment(Asc.scope.data, Asc.scope.model, "uid" + Asc.scope.model);
-                            if (!comment)
-                                return null;
-                            doc.ShowComment([comment.GetId()]);
-                            return comment.GetId();
-                        }
-
-                        let comment = doc.GetCommentById(commentId);
-                        if (!comment)
-                            return commentId;
-
-                        comment.SetText(comment.GetText() + scope.data);
-                        return commentId;
+                    await Asc.Editor.callCommand(function(){
+                        Api.GetDocument().AddFootnote();
                     });
+                    addFootnote = false;
+                }
+                await Asc.Library.PasteText(data);
+            });
+        }
+        else
+        {
+            let commentId = null;
+            let result = await requestEngine.chatRequest(argPromt, false, async function(data) {
+                if (!data)
+                    return;
+
+                await checkEndAction();
+                Asc.scope.data = data;
+                Asc.scope.model = requestEngine.modelUI.name;
+                Asc.scope.commentId = commentId;
+
+                commentId = await Asc.Editor.callCommand(function(){
+                    let doc = Api.GetDocument();
+                    let commentId = Asc.scope.commentId;
+
+                    if (!commentId)
+                    {
+                        let range = doc.GetRangeBySelect();
+                        if (!range)
+                            return null;
+
+                        let comment = range.AddComment(Asc.scope.data, Asc.scope.model, "uid" + Asc.scope.model);
+                        if (!comment)
+                            return null;
+                        doc.ShowComment([comment.GetId()]);
+                        return comment.GetId();
+                    }
+
+                    let comment = doc.GetCommentById(commentId);
+                    if (!comment)
+                        return commentId;
+
+                    comment.SetText(comment.GetText() + Asc.scope.data);
+                    return commentId;
                 });
-            }
+            });
+        }
 
-            // Marks the end of a block action in the editor.
-            await checkEndAction();
-            // Marks the end of a group action in the editor.
-            await Asc.Editor.callMethod("EndAction", ["GroupActions"]);
-        };
+        await checkEndAction();
+        await Asc.Editor.callMethod("EndAction", ["GroupActions"]);
+    };
 
-        return func;
-    }
-});
+    return func;
+})();
 ```
+
+> To ensure the entire block of changes can be rolled back after the request is executed, we use [StartAction](../interacting-with-editors/api-by-editor-type/text-document-api/Methods/StartAction.md) and [EndAction](../interacting-with-editors/api-by-editor-type/text-document-api/Methods/EndAction.md) methods across the `commentText` function.
 
 The AI agent functionality continues to evolve alongside the needs of today's digital world. Extend its capabilities by creating your own custom functions, tailored to your specific use cases.

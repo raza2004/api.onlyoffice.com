@@ -4,66 +4,82 @@ sidebar_position: -3
 
 # Tool structure
 
-This page describes the complete structure of a custom AI tool, covering parameters, schema conventions, UI naming, translations, and error handling.
+This page describes the complete structure of a custom AI tool, covering the configuration object, JSON Schema parameters, examples format, UI naming conventions, and error handling.
 
 ## RegisteredFunction fields {#fields}
 
 | Field | Type | Required | Description |
 | ----- | ---- | -------- | ----------- |
 | `name` | `string` | Yes | The identifier used by the agent to call the tool. Must be unique across all registered tools. |
-| `params` | `string[]` | Yes | A list of parameter descriptions passed to the AI model. Each entry describes one parameter and its expected type. |
-| `examples` | `string[]` | Yes | Example invocations that teach the agent when and how to call the tool. |
-| `description` | `string` | No | A short sentence describing the tool's purpose. Helps the agent choose the correct tool when multiple tools are registered. |
-| `call` | `async function` | Yes | The handler that runs when the agent invokes the tool. Receives a `params` object with the values parsed from the agent's response. |
+| `text` | `string` | Yes | A short display name shown in the UI (e.g., `"Add Comment to Text"`). |
+| `description` | `string` | Yes | A sentence describing the tool's purpose. Helps the agent choose the correct tool when multiple tools are registered. |
+| `parameters` | `object` | Yes | A JSON Schema object describing the arguments the agent will pass to the tool. |
+| `examples` | `object[]` | Yes | Example invocations that teach the agent when and how to call the tool. |
+| `call` | `async function` | Yes | The handler that runs when the agent invokes the tool. Assigned after construction. Receives a `params` object with the values parsed from the agent's response. |
 
-## Parameter format {#params-format}
+## Parameters format {#params-format}
 
-Each entry in `func.params` follows this convention:
-
-```
-"paramName (type): short description of what the parameter represents"
-```
-
-Examples:
+The `parameters` field follows the [JSON Schema](https://json-schema.org/) format. Define each argument as a property with a `type` and `description`. Mark required arguments in the `required` array.
 
 ``` ts
-func.params = [
-    "count (number): the number of rows to insert",
-    "position (string): where to insert — 'before' or 'after' the selection",
-    "content (string): the text to place in the inserted rows (optional)"
-];
+"parameters": {
+    "type": "object",
+    "properties": {
+        "prompt": {
+            "type": "string",
+            "description": "The user's instruction."
+        },
+        "count": {
+            "type": "number",
+            "description": "The number of rows to insert."
+        },
+        "position": {
+            "type": "string",
+            "enum": ["before", "after"],
+            "description": "Where to insert — before or after the selection.",
+            "default": "after"
+        }
+    },
+    "required": ["prompt"]
+}
 ```
 
-Keep descriptions concise. The AI model uses them to determine what value to pass for each parameter. Mark optional parameters explicitly with `(optional)` at the end of the description.
+Use `enum` to restrict a parameter to a fixed set of values. Use `default` to document the fallback when the argument is omitted.
 
 ## Examples format {#examples-format}
 
-Each entry in `func.examples` is a plain string containing a scenario sentence followed by the exact JSON the agent should produce:
+Each entry in `examples` is an object with two fields:
+
+- `prompt` — the natural language phrase a user might type.
+- `arguments` — the exact parameter object the agent should produce.
 
 ``` ts
-func.examples = [
-    "If you need to insert 3 rows after the selection, respond with:\n" +
-    "[functionCalling (insertRows)]: {\"prompt\": \"Add 3 rows\", \"count\": 3, \"position\": \"after\"}",
-
-    "If you need to insert a single row before the selection, respond with:\n" +
-    "[functionCalling (insertRows)]: {\"prompt\": \"Insert a row here\", \"count\": 1, \"position\": \"before\"}"
-];
+"examples": [
+    {
+        "prompt": "Insert 3 rows after the selection",
+        "arguments": { "prompt": "Insert 3 rows after the selection", "count": 3, "position": "after" }
+    },
+    {
+        "prompt": "Add a row before this one",
+        "arguments": { "prompt": "Add a row before this one", "count": 1, "position": "before" }
+    }
+]
 ```
 
-Provide at least two examples per tool to improve the agent's matching accuracy. Cover edge cases such as optional parameters being omitted.
+Provide at least two examples per tool. Cover variations in parameters — including cases where optional arguments are omitted — to improve the agent's matching accuracy.
 
 ## UI naming {#ui-naming}
 
 When displaying tool names or results in the editor UI, follow these conventions:
 
-- Use sentence case for labels: **Insert rows**, not **Insert Rows**.
+- Use sentence case for the `text` field: `"Insert rows"`, not `"Insert Rows"`.
 - Refer to the product as **ONLYOFFICE**, not **OnlyOffice** or **Onlyoffice**.
 - Use the exact editor names as they appear in the UI: **Text Document Editor**, **Spreadsheet Editor**, **Presentation Editor**.
 - When referencing UI elements such as tabs, buttons, or menu items, use **bold**: click **OK**, open the **AI** tab.
 
 ## Translations {#translations}
 
-Tool metadata (`params`, `examples`, `description`) is always written in English because it is sent directly to the AI model. Do not localize these fields.
+Tool metadata (`parameters`, `examples`, `description`) is always written in English because it is sent directly to the AI model. Do not localize these fields.
 
 User-visible strings that your tool inserts into the document or displays in a notification should be sourced from the plugin's localization files. For details on plugin localization, refer to the [Localization](../../structure/localization.md) page.
 

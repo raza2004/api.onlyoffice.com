@@ -41,16 +41,6 @@ Custom tools are registered at plugin initialization and remain available for th
 4. The agent invokes `func.call` with a parameters object parsed from its response.
 5. The tool runs its document logic and optionally returns a result string to the agent.
 
-## Editor-specific function maps {#function-maps}
-
-Tools are scoped to a specific editor type. Register tools in the correct map for the editor your plugin targets:
-
-| Map | Target editor |
-| --- | ------------- |
-| `WORD_FUNCTIONS` | Text document editor |
-| `CELL_FUNCTIONS` | Spreadsheet editor |
-| `SLIDE_FUNCTIONS` | Presentation editor |
-
 ## Next steps {#next-steps}
 
 - [Creating a custom AI tool](creating-a-custom-ai-tool.md) — set up your first tool from scratch.
