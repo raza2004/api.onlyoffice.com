@@ -19,20 +19,20 @@ Tool calling in the ONLYOFFICE AI agent follows a flow similar to [function call
 
 The AI agent ships with predefined tools for each editor type:
 
-**Text document editor**
+**[Text document editor](https://github.com/ONLYOFFICE/onlyoffice.github.io/tree/master/sdkjs-plugins/content/ai/.dev/helpers/word)**
 - Comment or annotate selected text
 - Rewrite or rephrase text
 - Check spelling and grammar
 - Change text style and paragraph formatting
 - Insert pages
 
-**Spreadsheet editor**
+**[Spreadsheet editor](https://github.com/ONLYOFFICE/onlyoffice.github.io/tree/master/sdkjs-plugins/content/ai/.dev/helpers/cell)**
 - Add charts from data ranges
 - Explain formulas
 - Insert pivot tables
 - Apply filters and sorting
 
-**Presentation editor**
+**[Presentation editor](https://github.com/ONLYOFFICE/onlyoffice.github.io/tree/master/sdkjs-plugins/content/ai/.dev/helpers/slide)**
 - Add new slides
 - Add shapes, tables, and charts to slides
 - Change slide backgrounds

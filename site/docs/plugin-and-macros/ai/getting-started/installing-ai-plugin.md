@@ -6,8 +6,6 @@ sidebar_position: 1
 
 The AI plugin is a background plugin that connects an AI provider to ONLYOFFICE editors. This page covers installation and initial configuration.
 
-**Repository on GitHub:** [ai](https://github.com/ONLYOFFICE/onlyoffice.github.io/tree/master/sdkjs-plugins/content/ai)
-
 ## Installation
 
 Starting from version 9.0.4, the AI plugin is included in server and desktop distributions built with ONLYOFFICE branding.
@@ -21,6 +19,8 @@ If you need to add it manually:
    - [ONLYOFFICE Cloud](../../tutorials/installing/onlyoffice-cloud.md)
 
 The plugin GUID is `{9DC93CDB-B576-4F0C-B55E-FCC9C48DD007}`.
+
+[Repository on GitHub](https://github.com/ONLYOFFICE/onlyoffice.github.io/tree/master/sdkjs-plugins/content/ai)
 
 ## Enabling the plugin
 

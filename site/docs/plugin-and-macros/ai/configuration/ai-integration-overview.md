@@ -52,7 +52,7 @@ The AI plugin maintains three separate maps of registered tools, one per editor 
 
 | Map name | Editor type |
 | --- | --- |
-| `WORD_FUNCTIONS` | Document editor (Writer) |
+| `WORD_FUNCTIONS` | Document editor |
 | `CELL_FUNCTIONS` | Spreadsheet editor |
 | `SLIDE_FUNCTIONS` | Presentation editor |
 

@@ -10,6 +10,8 @@ The AI agent is an inline contextual assistant integrated into ONLYOFFICE editor
 
 The AI agent is invoked with `Ctrl + /` and appears as a floating input panel directly in the editor. Unlike the AI plugin's side panel, the agent works inline — requests are typed in context and results are applied immediately to the document.
 
+![AI agent prompt](/assets/images/plugins/ai-agent-prompt.png)
+
 The agent:
 
 - Understands natural language requests for common editing tasks.

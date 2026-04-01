@@ -24,7 +24,9 @@ You can also use the AI plugin on selected text:
 
 1. Select text in the editor.
 2. Right-click and open the **AI** submenu.
-3. Choose one of the options: **Summarization**, **Text analysis**, **Translate**, **Image**, or **Chatbot**.
+3. Choose one of the options: **Grammar & Spelling**, **Text analysis**, or **Chatbot**.
+
+![AI context menu](/assets/images/plugins/ai-context-menu.png)
 
 ## Using the AI agent
 
@@ -33,6 +35,8 @@ For a faster, inline experience, use the AI agent:
 1. Press `Ctrl + /` in any editor.
 2. Type your request in natural language (e.g., "Summarize this paragraph" or "Make this heading bold").
 3. Press `Enter`.
+
+![AI agent prompt](/assets/images/plugins/ai-agent-prompt.png)
 
 The agent responds immediately and supports multi-step conversation — continue refining with follow-up instructions.
 

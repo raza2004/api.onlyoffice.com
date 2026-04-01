@@ -16,6 +16,7 @@ This page explains the execution flow for each layer of the ONLYOFFICE AI system
 ```
 User input → AI plugin → Provider API → Response → Document
 ```
+![Activate AI](/assets/images/plugins/activate-ai.png#gh-light-mode-only)![Activate AI](/assets/images/plugins/activate-ai.dark.png#gh-dark-mode-only)
 
 ## AI agent example flow
 
@@ -28,6 +29,7 @@ User input → AI plugin → Provider API → Response → Document
 ```
 User request → Agent → Tool selection → Tool execution → Office API → Document
 ```
+![Inline AI Agent](/assets/images/plugins/inline-ai-agent.png#gh-light-mode-only)![Inline AI Agent](/assets/images/plugins/inline-ai-agent.dark.png#gh-dark-mode-only)
 
 ## When to use custom AI tools
 
