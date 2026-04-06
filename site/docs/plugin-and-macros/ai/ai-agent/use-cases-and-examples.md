@@ -8,6 +8,8 @@ This page shows practical scenarios for the AI agent across different editor typ
 
 ## Text document editor
 
+![Text document editor use case](/assets/images/plugins/ai-agent-prompt.png#gh-light-mode-only)![Text document editor use case](/assets/images/plugins/ai-agent-prompt.dark.png#gh-dark-mode-only)
+
 **Annotating content**
 
 Select a paragraph and type:
@@ -31,6 +33,8 @@ The agent reviews the text and applies corrections using track changes so you ca
 
 ## Spreadsheet editor
 
+![Spreadsheet editor use case](/assets/images/plugins/ai-use-case-spreadsheet.png#gh-light-mode-only)![Spreadsheet editor use case](/assets/images/plugins/ai-use-case-spreadsheet.dark.png#gh-dark-mode-only)
+
 **Chart generation**
 
 Select a data range and type:
@@ -53,6 +57,8 @@ Type:
 The agent applies the sort without you needing to open any menus.
 
 ## Presentation editor
+
+![Presentation editor use case](/assets/images/plugins/ai-use-case-presentation.png#gh-light-mode-only)![Presentation editor use case](/assets/images/plugins/ai-use-case-presentation.dark.png#gh-dark-mode-only)
 
 **Adding slides**
 
